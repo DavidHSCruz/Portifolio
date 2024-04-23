@@ -1,0 +1,84 @@
+header {
+    position: fixed;
+    width: 100%;
+}
+header>section, .navegacao>ul, .redes_sociais, .navegacao {
+    display: flex;
+}
+
+header>section {
+    background: var(--cor-2);
+    transition: 500ms;
+}
+
+header>section, .navegacao {
+    align-items: center;
+}
+
+header>section {
+    height: 50px;
+    padding: 0 10px;
+    justify-content: space-between;
+}
+
+.logoTipo, .botao_altera_tema {
+    width: 30px;
+    height: 30px;
+}
+
+.logo_marca>p {
+    font-family: 'Belanosima';
+    line-height: 50px;
+    font-size: 1.5em;
+    color: var(--cor-1);
+    transition: 500ms;
+}
+
+.logo_marca>p>i {
+    opacity: .5;
+}
+
+
+.icon_tema[name=contrast-outline], .icon_tema[name=contrast],
+svg[name=logo-github], svg[name=logo-linkedin],
+.navegacao>ul>a>li, .redes_sociais>a>li {
+    color: var(--cor-1);
+    transition: 500ms;
+}
+
+.icon_tema[name=contrast-outline], .icon_tema[name=contrast],
+svg[name=logo-github], svg[name=logo-linkedin] {
+    width: 25px;
+    height: 25px;
+}
+
+.icon_tema[name=contrast-outline]:active, .icon_tema[name=contrast]:active {
+    transform: rotate(45deg);
+    transition: 100ms;
+}
+
+.navegacao>ul>a {
+    margin: 1em;
+}
+
+.redes_sociais>a {
+    margin: 1em .5em;
+}
+
+.navegacao>ul>a>li, .redes_sociais>a>li {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 28px;
+    font-family: 'Belanosima', sans-serif;
+}
+
+.navegacao>ul>a>li:hover, .redes_sociais>a>li>svg:hover,
+.icon_tema[name=contrast-outline]:hover, .icon_tema[name=contrast]:hover {
+    color: var(--cor-azul);
+    transition: 200ms;
+}
+
+.navegacao>ul>a>li.selecionado {
+    color: var(--cor-azul);
+}
