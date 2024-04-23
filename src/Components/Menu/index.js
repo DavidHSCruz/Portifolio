@@ -93,7 +93,6 @@ export default function Menu() {
                     <BiAdjust
                         ref={icon__tema}
                         className={styles.icon_tema}
-                        name="contrast-outline"
                     />
                 </button>
             </section>

@@ -1,5 +1,5 @@
 import styles from './Home.module.css'
-import fotoPerfil from '../../Imagens/fotoPerfil/eu.jpg'
+import fotoPerfil from 'Imagens/fotoPerfil/eu.jpg'
 
 export default function Home() {
     return(
