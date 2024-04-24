@@ -1,13 +1,12 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styles from './Menu.module.css'
 import { FaLinkedin, FaGithub } from "react-icons/fa"
 import { BiAdjust } from "react-icons/bi"
 import { useEffect, useRef, useState } from 'react'
+import LinkDestacado from 'Components/LinkDestacado'
 
 export default function Menu() {
     const listMenu = [ 'HOME', 'PROJETOS', 'HABILIDADES', 'SOBRE MIM', 'CONTATO' ]
-    const localizacao = useLocation()
-    
     const tema__noturno = JSON.parse(localStorage.getItem('tema__noturno'))
     const [noturno, setNoturno] = useState(tema__noturno)
     const icon__tema = useRef(null)
@@ -62,7 +61,9 @@ export default function Menu() {
                 <nav className={styles.navegacao}>
                     <ul>
                         {
-                            listMenu.map( item => (<Link to={ item.toLowerCase() }><li className={localizacao.pathname === item.toLowerCase() ? styles.selecionado : ''}><p>{item}</p></li></Link>) )
+                            listMenu.map( item => (
+                                <LinkDestacado to={ item === 'HOME' ? '' : item.toLowerCase() }>{item}</LinkDestacado>
+                                ))
                         }
             
                         <ul className={styles.redes_sociais}>

@@ -62,4 +62,6 @@ body {
   transition: 500ms;
   font-family: 'Belanosima', sans-serif;
   color: var(--cor-1);
+  height: 200vh;
+  width: 100%;
 }

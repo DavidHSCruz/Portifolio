@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Menu from "./Components/Menu"
-import Home from "./Components/Home"
+import Home from "./Rotas/Home"
 
 export default function AppRoutes() {
     return(
@@ -8,7 +8,7 @@ export default function AppRoutes() {
             <Menu />
 
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route index element={<Home />} />
                 <Route path="/projetos" element={<Home />} />
                 <Route path="/habilidades" element={<Home />} />
                 <Route path="/sobremim" element={<Home />} />

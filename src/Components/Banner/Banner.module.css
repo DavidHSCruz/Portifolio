@@ -1,13 +1,8 @@
-body {
-    height: 200vh;
-    width: 100%;
-}
-
-main>section {
+section {
     display: flex;
 }
 
-.inicio_direita {
+.inicio_esquerda {
     background: var(--cor-azul);
     width: 50%;
     height: 100vh;
@@ -21,8 +16,7 @@ main>section {
 
         &>h1, &>h2 {
             margin-right: 25px;
-            transform: translateX(500px);
-            animation: entrada_inicio 1s ease-in-out 500ms both;
+            animation: entrada_titulo 1s ease-in-out 500ms both;
         }
 
         &>h1 {
@@ -39,7 +33,7 @@ main>section {
 }
 
 
-.inicio_esquerda {
+.inicio_direita {
     display: flex;
     width: 30%;
     align-items: center;
@@ -55,8 +49,9 @@ main>section {
         display: flex;
         justify-content: center;
         align-items: center;
+        animation: entrada_fundoFoto 1s ease-in-out 2s both;
         transition: 500ms;
-
+        
         &>img {
             position: relative;
             left: 100px;
@@ -64,16 +59,32 @@ main>section {
             border: solid 20px var(--cor-2);
             border-radius: 250px;
             width: 400px;
+            animation: entrada_foto 1s ease-in-out 1s both;
             transition: 500ms;
         }
     }
 }
 
-@keyframes entrada_inicio {
+@keyframes entrada_titulo {
     from {
         transform: translateX(500px);
     }
-    to {
-        transform: translateX(0px);
+}
+
+@keyframes entrada_foto {
+    from {
+        transform: rotate(-360deg);
+        width: 0px;
+    }
+}
+
+@keyframes entrada_fundoFoto {
+    from {
+        width: 0;
+        height: 0;
+        top: -100px;
+        left: -100px;
+    } to {
+        left: 0px;
     }
 }
