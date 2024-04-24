@@ -1,11 +1,11 @@
 import Banner from "Components/Banner";
+import Cards from "Components/Cards";
 
 export default function Home() {
     return(
         <main>
             <Banner />
-            <section>
-            </section>
+            <Cards title='PRINCIPAIS PROJETOS' />
         </main>
     )
 }

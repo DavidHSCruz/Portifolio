@@ -68,10 +68,14 @@ export default function Menu() {
             
                         <ul className={styles.redes_sociais}>
                             <Link to='https://github.com/DavidHSCruz'>
-                                <li><FaGithub name="logo-github"/></li>
+                                <li>
+                                    <FaGithub name="logo-github"/>
+                                </li>
                             </Link>
                             <Link to='https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/'>
-                                <li><FaLinkedin name="logo-linkedin"/></li>
+                                <li>
+                                    <FaLinkedin name="logo-linkedin"/>
+                                </li>
                             </Link>
                         </ul>
             

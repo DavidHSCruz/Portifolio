@@ -1,0 +1,7 @@
+.card {
+    background-color: var(--cor-1);
+    color: var(--cor-2);
+    width: 400px;
+    height: 500px;
+    transition: 500ms;
+}

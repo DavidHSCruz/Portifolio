@@ -6,6 +6,7 @@ section {
     background: var(--cor-azul);
     width: 50%;
     height: 100vh;
+    padding-bottom: 300px;
     display: flex;
     align-items: center;
     justify-content: end;
@@ -41,7 +42,7 @@ section {
 
     &>div {
         position: relative;
-        top: -50px;
+        top: -150px;
         background-color: var(--cor-1);
         width: 500px;
         height: 500px;
@@ -55,7 +56,7 @@ section {
         &>img {
             position: relative;
             left: 100px;
-            top: 100px;
+            top: 50px;
             border: solid 20px var(--cor-2);
             border-radius: 250px;
             width: 400px;
@@ -82,8 +83,8 @@ section {
     from {
         width: 0;
         height: 0;
-        top: -100px;
-        left: -100px;
+        top: -160px;
+        left: -50px;
     } to {
         left: 0px;
     }
