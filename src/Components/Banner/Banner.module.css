@@ -6,7 +6,6 @@ section {
     background: var(--cor-azul);
     width: 50%;
     height: 100vh;
-    padding-bottom: 300px;
     display: flex;
     align-items: center;
     justify-content: end;
@@ -42,7 +41,7 @@ section {
 
     &>div {
         position: relative;
-        top: -150px;
+        top: -50px;
         background-color: var(--cor-1);
         width: 500px;
         height: 500px;
@@ -83,7 +82,7 @@ section {
     from {
         width: 0;
         height: 0;
-        top: -160px;
+        top: -80px;
         left: -50px;
     } to {
         left: 0px;

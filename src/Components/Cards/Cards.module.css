@@ -1,12 +1,11 @@
 .cards_container {
-    position: relative;
-    top: -250px;
     display: block;
     text-align: center;
+    padding: 4em 0;
 
     &>h1 {
         font-size: 1.5em;
-        margin-bottom: 2em;
+        padding-bottom: 2em;
     }
 }
 

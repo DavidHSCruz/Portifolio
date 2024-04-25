@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Menu from "./Components/Menu"
-import Home from "./Rotas/Home"
+import Home from "Rotas/Home"
+import Footer from "Components/Footer"
+import Menu from "Components/Menu"
 
 export default function AppRoutes() {
     return(
@@ -16,6 +17,8 @@ export default function AppRoutes() {
                 <Route path="https://github.com/DavidHSCruz" />
                 <Route path="https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/" />
             </Routes>
+
+            <Footer />
         </BrowserRouter>
     )
 }

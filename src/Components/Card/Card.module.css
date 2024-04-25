@@ -1,7 +1,21 @@
 .card {
-    background-color: var(--cor-1);
-    color: var(--cor-2);
+    background-color: var(--cor-azul);
+    color: var(--cor-1);
     width: 400px;
     height: 500px;
     transition: 500ms;
+
+    &>img {
+        height: 50%;
+        width: 100%;
+    }
+
+    &>h3 {
+        font-size: 1.5em;
+        padding: .6em 0;
+    }
+
+    &>p {
+        font-size: 1em;
+    }
 }
