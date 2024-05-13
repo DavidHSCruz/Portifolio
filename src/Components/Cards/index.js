@@ -1,7 +1,8 @@
 import Card from 'Components/Card'
 import styles from './Cards.module.css'
-import CasaVerdeIMG from 'Imagens/Projetos/CasaVerde.jpg'
-import TicTacToeIMG from 'Imagens/Projetos/TicTacToe.jpg'
+import CasaVerdeIMG from 'Imagens/Projetos/CasaVerde.png'
+import TicTacToeIMG from 'Imagens/Projetos/TicTacToe.png'
+import AluraBooksIMG from 'Imagens/Projetos/AluraBooks.png'
 
 export default function Cards({ title }) {
     return (
@@ -23,8 +24,8 @@ export default function Cards({ title }) {
                 <Card 
                     title='ALURA BOOKS'
                     descricao=''
-                    img=''
-                    to=''
+                    img={AluraBooksIMG}
+                    to='https://alurabooks-tau-ten.vercel.app/'
                 />
             </div>
         </section>
