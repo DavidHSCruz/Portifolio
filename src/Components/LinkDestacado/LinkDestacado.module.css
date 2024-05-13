@@ -4,11 +4,11 @@ li {
 }
 
 .selecionado {
-    color: var(--cor-azul);
+    color: var(--cor-verde);
 }
 
 li:hover {
-    color: var(--cor-azul);
+    color: var(--cor-verde);
     transition: 200ms;
 }
 

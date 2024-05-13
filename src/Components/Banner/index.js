@@ -13,6 +13,8 @@ export default function Banner() {
             <div className={styles.inicio_direita}>
                 <div>
                     <img src={fotoPerfil} alt="Minha foto de perfil" />
+                    <span className={styles.circulo_verde}></span>
+                    <span></span>
                 </div>
             </div>
         </section>

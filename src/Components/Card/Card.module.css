@@ -1,13 +1,30 @@
 .card {
-    background-color: var(--cor-azul);
-    color: var(--cor-1);
+    background-color: var(--cor-1);
+    color: var(--cor-2);
     width: 400px;
-    height: 500px;
+    height: 590px;
     transition: 500ms;
+    box-shadow: #0002 0 0px;
+    &:hover {
+        box-shadow: #0002 0 10px;
+        transform: translateY(-10px);
+    }
 
-    &>img {
+    &:nth-child(2) {
+        position: relative;
+        top: -50px;
+    }
+    &>div {
         height: 50%;
-        width: 100%;
+        overflow: hidden;
+        margin: 10px;
+    }
+
+    &>div>img {
+        height: 100%;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     &>h3 {

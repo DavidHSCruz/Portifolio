@@ -20,25 +20,77 @@ header {
 }
 
 
-.logoTipo, .botao_altera_tema {
+.botao_altera_tema {
     width: 30px;
     height: 30px;
 }
 
-.logo_marca>p {
-    font-family: 'Belanosima';
-    line-height: 50px;
-    font-size: 1.5em;
-    color: var(--cor-1);
-    transition: 500ms;
+.logo_marca {
+    position: relative;
+    width: 50px;
+    height: 50px;
 
-    &>i {
-        opacity: .5;
+    &:hover>div>.c {
+        margin-left: .2em;
+        transform: translateX(0px);
+    }
+
+    &:hover>div>p, &:hover>div>div>p {
+        opacity: 1;
+    }
+
+    &:hover>div>.avid>p {
+        transform: translateX(0px);
+        transition-delay: 250ms;
+    }
+
+    &:hover>div>.ruz>p {
+        transform: translateX(0px);
+        transition-delay: 500ms;
+    }
+
+
+    &>div {
+        display: flex;
+        position: absolute;
+        
+        &>div {
+            overflow: hidden;
+        }
+
+        
+        &>.c {
+            margin-left: 0;
+        }
+
+        &>p, &>div>p {
+            line-height: 50px;
+            font-size: 1.5em;
+            color: var(--cor-1);
+            opacity: .5;
+            transform: translate(-48.8px);
+            transition: 500ms;
+        }
+
+        &>.d {
+            width: 14.1px;
+            margin: 16.2px 1.4px;
+            opacity: 1;
+            z-index: 1;
+        }
+        .d_verde, .d_tema {
+            stroke-width: 0;
+        }
+        .d_verde {
+            fill: var(--cor-verde);
+        }
+
+        .d_tema {
+            fill: var(--cor-1);
+            transition: 500ms;
+        }
     }
 }
-
-
-
 .icon_tema,
 svg[name=logo-github],
 svg[name=logo-linkedin],
@@ -73,6 +125,6 @@ svg[name=logo-linkedin] {
 
 .redes_sociais>a>li>svg:hover,
 .icon_tema:hover{
-    color: var(--cor-azul);
+    color: var(--cor-verde);
     transition: 200ms;
 }

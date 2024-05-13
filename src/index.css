@@ -2,8 +2,9 @@
 
 :root {
   --cor-1: #202734;
-  --cor-2: #ffffff;
+  --cor-2: #f4f4f4;
   --cor-azul: #0992DD;
+  --cor-verde: #06d6a0;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -60,6 +61,19 @@ input, textarea {
 body {
   background: var(--cor-2);
   transition: 500ms;
-  font-family: 'Belanosima', sans-serif;
+  font-family: 'Belanosima', Arial, sans-serif;
   color: var(--cor-1);
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #12161c;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--cor-verde);
+  border-radius: 5px;
 }

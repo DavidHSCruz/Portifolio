@@ -1,6 +1,13 @@
 .footer {
-    background-color: var(--cor-azul);
+    background-color: var(--cor-1);
+    color: var(--cor-2);
+    padding: 20px;
     height: 100px;
-    text-align: center;
-    line-height: 100px;
+    &>p {
+        font-size: 1.2em;
+        &>i {
+            font-size: 1.2em;
+            font-family: Arial, sans-serif;
+        }
+    }
 }
