@@ -108,33 +108,3 @@ section {
         transform: translateX(500px);
     }
 }
-
-@keyframes entrada_foto {
-    from {
-        transform: rotate(-360deg);
-        width: 0px;
-    }
-}
-
-@keyframes entrada_fundoFoto {
-    from {
-        width: 0;
-        height: 0;
-        top: -80px;
-        left: 100px;
-    } to {
-        left: 0px;
-    }
-}
-
-@keyframes verde_loop {
-    from {
-        transform: rotate(-359deg);
-    }
-}
-
-@keyframes verde_opacity {
-    from {
-        opacity: 0;
-    }
-}

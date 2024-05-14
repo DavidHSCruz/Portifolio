@@ -10,6 +10,5 @@ export default function Card({ title, descricao, img, to }) {
             <h3>{title}</h3>
             <p>{descricao}</p>
         </Link>
-        
     )
 }
