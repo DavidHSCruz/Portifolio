@@ -12,8 +12,10 @@ export default function Banner() {
             </div>
             <div className={styles.inicio_direita}>
                 <div>
-                    <img src={fotoPerfil} alt="Minha foto de perfil" />
-                    <span></span>
+                    <div>
+                        <img src={fotoPerfil} alt="Minha foto de perfil" />
+                        <span></span>
+                    </div>
                 </div>
             </div>
         </section>

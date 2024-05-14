@@ -1,0 +1,101 @@
+.menuMobile {
+    position: fixed;
+    width: 100%;
+    z-index: 20;
+    &>.hamburguer {
+        width: 40px;
+        height: 40px;
+        padding-left: 20px;
+        padding-top: 10px;
+        z-index: 21;
+        position: absolute;
+
+        &>span {
+            margin-top: 10px;
+        }
+
+        &>span {
+            display: block;
+            width: 35px;
+            height: 5px;
+            border-radius: 5px;
+            background-color: var(--cor-verde);
+            transition: 500ms;
+        }
+    }
+
+    &>section {
+        position: absolute;
+        top: -100vh;
+        width: 100%;
+        align-items: start;
+        height: 50px;
+        transition: 500ms;
+
+        &>.navegacao {
+            padding-left: 20px;
+            height: 100vh;
+            background: var(--cor-2);
+            overflow: hidden;
+            transition: 500ms;
+
+            &>ul {
+                padding-top: 100px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+
+                &>a {
+                    margin: 1em 0;
+                }
+                
+                &>.redes_sociais {
+                    display: flex;
+                }
+
+                &>.botao_altera_tema {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+        }
+    }
+}
+
+.icon_tema,
+svg[name=logo-github],
+svg[name=logo-linkedin],
+.redes_sociais>a>li {
+    color: var(--cor-1);
+    transition: 500ms;
+}
+
+.icon_tema,
+svg[name=logo-github],
+svg[name=logo-linkedin] {
+    width: 25px;
+    height: 25px;
+}
+
+.icon_tema:active {
+    transform: rotate(45deg);
+    transition: 100ms;
+}
+
+.redes_sociais>a {
+    margin: 1em .5em 1em 0;
+}
+
+.redes_sociais>a>li {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 28px;
+    font-family: 'Belanosima', sans-serif;
+}
+
+.redes_sociais>a>li>svg:hover,
+.icon_tema:hover{
+    color: var(--cor-verde);
+    transition: 200ms;
+}

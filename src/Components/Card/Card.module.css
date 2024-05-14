@@ -1,8 +1,8 @@
 .card {
     background-color: var(--cor-1);
     color: var(--cor-2);
-    width: 400px;
-    height: 590px;
+    width: min(80%, 400px);
+    padding: 20px;
     transition: 500ms;
     box-shadow: #0002 0 0px;
     &:hover {
@@ -17,22 +17,25 @@
     &>div {
         height: 50%;
         overflow: hidden;
-        margin: 10px;
     }
 
     &>div>img {
-        height: 100%;
         position: relative;
+        width: min(100%, 400px);
         left: 50%;
         transform: translateX(-50%);
     }
 
-    &>h3 {
+    &>div>h3 {
         font-size: 1.5em;
         padding: .6em 0;
     }
 
-    &>p {
+    &>div>p {
         font-size: 1em;
+        line-height: 1.5em;
+        opacity: .75;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }

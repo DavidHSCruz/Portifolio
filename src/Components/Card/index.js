@@ -7,8 +7,10 @@ export default function Card({ title, descricao, img, to }) {
             <div>
                 <img src={img} alt='' />
             </div>
-            <h3>{title}</h3>
-            <p>{descricao}</p>
+            <div>
+                <h3>{title}</h3>
+                <p>{descricao}</p>
+            </div>
         </Link>
     )
 }
