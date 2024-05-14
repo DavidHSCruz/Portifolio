@@ -42,63 +42,37 @@ section {
     justify-content: center;
 
     &>div {
+        background-color: var(--cor-1);
+        border-radius: 50%;
+        height: 500px;
+        justify-content: center;
+        margin-left: 100px;
         position: relative;
         top: -50px;
-        margin-left: 100px;
-        background-color: var(--cor-1);
+        transition: .5s;
         width: 500px;
-        height: 500px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        animation: entrada_fundoFoto 1s ease-in-out 2s both;
-        transition: 500ms;
 
         &>img {
+            border-radius: 50%;
+            left: 150px;
             position: relative;
-            left: 100px;
-            top: 50px;
-            border-radius: 50%;
+            top: 100px;
+            transition: .5s;
             width: 400px;
-            animation: entrada_foto 1s ease-in-out 1s both;
             z-index: 2;
-            transition: 500ms;
         }
 
-        &>span.circulo_verde {
-            background: linear-gradient(45deg, transparent, transparent, 80%, var(--cor-verde));
-            width: 420px;
-            height: 420px;
-            position: absolute;
-            left: 140px;
-            top: 90px;
-            border-radius: 50%;
-            z-index: 1;
-            animation: verde_loop 2s infinite, verde_opacity 500ms ease-in-out 3s both;
-            opacity: 1;
-
-            &::after {
-                content: '';
-                position: absolute;
-                background: linear-gradient(45deg, transparent, transparent, 90%, var(--cor-verde));
-                border-radius: 50%;
-                inset: 0;
-                filter: blur(10px);
-            }
-        }
         &>span {
-            background-color: var(--cor-2);
-            width: 440px;
-            height: 440px;
             position: absolute;
+            background-color: var(--cor-2);
+            border-radius: 50%;
+            height: 440px;
             left: 130px;
             top: 80px;
-            border-radius: 50%;
+            transition: .5s;
+            width: 440px;
             z-index: 0;
             opacity: 1;
-            animation: verde_opacity 500ms ease-in-out 3s both;
-            transition: 500ms;
         }
     }
 }
