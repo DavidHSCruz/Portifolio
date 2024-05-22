@@ -23,8 +23,6 @@ export default function AppRoutes() {
                 <Route path="/habilidades" element={<Home />} />
                 <Route path="/sobremim" element={<Home />} />
                 <Route path="/contato" element={<Home />} />
-                <Route path="https://github.com/DavidHSCruz" />
-                <Route path="https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/" />
             </Routes>
 
             <Footer />

@@ -4,6 +4,8 @@ import { FaLinkedin, FaGithub } from "react-icons/fa"
 import { BiAdjust } from "react-icons/bi"
 import { useEffect, useRef, useState } from 'react'
 import LinkDestacado from 'Components/LinkDestacado'
+import { IoLogoWhatsapp } from "react-icons/io"
+import LinkWhatsApp from 'Components/LinkWhatsApp'
 
 export default function Menu() {
     const listMenu = [ 'HOME', 'PROJETOS', 'HABILIDADES', 'SOBRE MIM', 'CONTATO' ]
@@ -17,6 +19,9 @@ export default function Menu() {
     const menu__hamburguer__linha3 = useRef(null)
     const menu__container = useRef(null)
     const tema = document.documentElement.style
+
+    const numeroWhats = '554199497870'
+    const mensagemWhats = 'Olá, adorei seu portfólio, vamos conversar?'
 
     useEffect(() => {
 
@@ -101,12 +106,12 @@ export default function Menu() {
                         }
             
                         <ul className={styles.redes_sociais}>
-                            <Link to='https://github.com/DavidHSCruz'>
+                            <Link to='https://github.com/DavidHSCruz' target='_blank'>
                                 <li>
                                     <FaGithub name="logo-github"/>
                                 </li>
                             </Link>
-                            <Link to='https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/'>
+                            <Link to='https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/' target='_blank'>
                                 <li>
                                     <FaLinkedin name="logo-linkedin"/>
                                 </li>
@@ -129,6 +134,9 @@ export default function Menu() {
                                 ref={icon__tema}
                                 className={styles.icon_tema}
                             />
+
+                            <LinkWhatsApp numeroWhats={numeroWhats} mensagemWhats={mensagemWhats} />
+
                         </button>
                     </ul>
                 </nav>

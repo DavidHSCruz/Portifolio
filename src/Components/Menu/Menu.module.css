@@ -2,7 +2,7 @@ header.menu {
     position: fixed;
     width: 100%;
     z-index: 99;
-    &>section {
+    &>section.menuComponent {
         height: 50px;
         padding: 0 10px;
         justify-content: space-between;
@@ -10,11 +10,11 @@ header.menu {
         transition: 500ms;
     }
 
-    &>section, .navegacao>ul, .redes_sociais, .navegacao {
+    &>section.menuComponent, .navegacao>ul, .redes_sociais, .navegacao {
         display: flex;
     }
     
-    &>section, .navegacao {
+    &>section.menuComponent, .navegacao {
         align-items: center;
     }
 }

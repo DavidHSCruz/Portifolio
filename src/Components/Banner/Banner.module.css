@@ -25,6 +25,23 @@ section {
             transition: 500ms;
             animation-delay: 600ms;
         }
+        &>.tecnologias {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2em;
+            color: var(--cor-2);
+
+            &>svg {
+                width: 50px;
+                height: 50px;
+                transition: 500ms;
+
+                &:hover {
+                    color: var(--cor-verde);
+                    transform: translateY(5px);
+                }
+            }
+        }
     }
 }
 
@@ -150,7 +167,7 @@ section {
         width: 100%;
         justify-content: center;
         &>div {
-            transform: translateY(-100%);
+            transform: translateY(-70%);
             text-align: center;
             &>h1 {
                 font-size: 9em;
@@ -168,7 +185,7 @@ section {
         &>div>div {
             background-color: var(--cor-2);
             scale: 70%;
-            transform: translateY(-80%);
+            transform: translateY(-70%);
             &>span {
                 background-color: var(--cor-1);
             }
@@ -198,8 +215,9 @@ section {
                 font-size: 5em;
             }
             
-            &>h2 {
-
+            &>.tecnologias {
+                margin-right: 10%;
+                margin-left: 10%;
             }
         }
     }
