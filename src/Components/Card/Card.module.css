@@ -15,7 +15,6 @@
         top: -50px;
     }
     &>div {
-        height: 50%;
         overflow: hidden;
     }
 
@@ -37,5 +36,12 @@
         opacity: .75;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+}
+
+@media(max-width:767px) {
+    .card:nth-child(2) {
+        position: static;
+        top: 0;
     }
 }

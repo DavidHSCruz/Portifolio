@@ -77,7 +77,7 @@ export default function Menu() {
                     <ul>
                         {
                             listMenu.map( item => (
-                                <LinkDestacado to={ item === 'HOME' ? '' : item.toLowerCase() }>{item}</LinkDestacado>
+                                <LinkDestacado to={ item === 'HOME' ? '' : item.toLowerCase().replace(/\s+/g, '') }>{item}</LinkDestacado>
                                 ))
                         }
             
