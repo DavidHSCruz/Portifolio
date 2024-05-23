@@ -7,7 +7,7 @@ import LinkDestacado from 'Components/LinkDestacado'
 import LinkWhatsApp from 'Components/LinkWhatsApp'
 
 export default function Menu() {
-    const listMenu = [ 'HOME', 'PROJETOS', 'HABILIDADES', 'SOBRE MIM', 'CONTATO' ]
+    const listMenu = [ 'HOME', 'PROJETOS', 'SOBRE MIM', 'CONTATO' ]
     const tema__noturno = JSON.parse(localStorage.getItem('tema__noturno'))
     const [noturno, setNoturno] = useState(tema__noturno)
     const icon__tema = useRef(null)

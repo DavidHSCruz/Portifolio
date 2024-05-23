@@ -14,13 +14,11 @@ export default function AppRoutes() {
 
     return(
         <BrowserRouter>
-        
-            { widthResize >= 768 ? <Menu /> : <MenuMobile /> }
-            
+            { widthResize > 768 ? <Menu /> : <MenuMobile /> }
+                
             <Routes>
                 <Route index element={<Home />} />
                 <Route path="/projetos" element={<Home />} />
-                <Route path="/habilidades" element={<Home />} />
                 <Route path="/sobremim" element={<Home />} />
                 <Route path="/contato" element={<Home />} />
             </Routes>

@@ -16,7 +16,7 @@
     justify-content: space-around;
 }
 
-@media(max-width:767px) {
+@media(max-width:768px) {
     .cards_component {
         flex-direction: column;
         align-items: center;

@@ -1,7 +1,45 @@
 .tragetoria {
     display: block;
-    font-size: 1.5em;
+    font-size: 1.2em;
     text-align: center;
     margin: auto;
     width: 85%;
+
+    &>h2 {
+        font-size: 1.5em;
+        margin: 2em 0 5em 0;
+    }
+    &>p {
+        margin: 4em 0;
+        line-height: 2em;
+    }
+}
+
+@media(min-width: 426px) {
+    .tragetoria {
+        &>p {
+            width: 50%;
+        }
+    
+        &>p:nth-child(2), &>p:nth-child(4) {
+            text-align: end;
+        }
+    
+        &>p:nth-child(3), &>p:nth-child(5) {
+            text-align: start;
+            margin-left: 50%;
+        }
+    
+        &>p:nth-child(6) {
+            width: 100%;
+            margin: 6em 0;
+            text-align: center;
+        }
+    }
+}
+@media(max-width: 425px) {
+    .tragetoria>p {
+        width: 100%;
+        text-align: center;
+    }
 }
