@@ -1,4 +1,4 @@
-section {
+section.bannerContainer {
     display: flex;
     overflow: hidden;
 }

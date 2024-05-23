@@ -5,7 +5,7 @@ import { IoLogoReact } from "react-icons/io5"
 
 export default function Banner() {
     return(
-        <section>
+        <section className={styles.bannerContainer}>
             <div className={styles.inicio_esquerda}>
                 <div>
                     <h1>OLÁ!</h1>

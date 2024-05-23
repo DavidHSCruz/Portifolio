@@ -4,7 +4,7 @@ import { FaLinkedin, FaGithub } from "react-icons/fa"
 import { BiAdjust } from "react-icons/bi"
 import { useEffect, useRef, useState } from 'react'
 import LinkDestacado from 'Components/LinkDestacado'
-import LinkWhatsApp from 'Components/LinkWhatsApp'
+import LinkMenuWhatsApp from 'Components/LinkMenuWhatsApp'
 
 export default function Menu() {
     const listMenu = [ 'HOME', 'PROJETOS', 'SOBRE MIM', 'CONTATO' ]
@@ -121,7 +121,7 @@ export default function Menu() {
                 </button>
             </section>
             
-            <LinkWhatsApp numeroWhats={numeroWhats} mensagemWhats={mensagemWhats} fixed/>
+            <LinkMenuWhatsApp numeroWhats={numeroWhats} mensagemWhats={mensagemWhats} fixed/>
 
         </header>
     )

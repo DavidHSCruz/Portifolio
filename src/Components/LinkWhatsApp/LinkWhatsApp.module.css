@@ -1,20 +1,26 @@
 section.contato {
-    
-    position: absolute;
-    bottom: 30px;
-    right: 25px;
-    color: var(--cor-verde);
-    transition: 500ms;
+    color: var(--cor-2);
+    margin-bottom: 6em;
     &>a {
-        margin: 0;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--cor-verde);
+        width: fit-content;
+        padding: 20px 40px;
+        transition: 500ms;
+        
+        &:hover {
+            transform: translateY(-5px);
+        }
     }
-    &:hover {
-        transform: translateY(-5px);
-    }
+
     
     & svg.whats {
         width: 50px;
         height: 50px;
+        padding-right: 15px;
     }
 }
 
