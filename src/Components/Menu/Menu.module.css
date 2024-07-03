@@ -17,6 +17,18 @@ header.menu {
     &>section.menuComponent, .navegacao {
         align-items: center;
     }
+
+    .navegacao>ul {
+        &>li {
+            margin: 1em;
+            align-content: center;
+            transition: 500ms;
+            &:hover {
+                color: var(--cor-verde);
+                transition: 200ms;
+            }
+        }
+    }
 }
 
 
@@ -94,7 +106,7 @@ header.menu {
 .icon_tema,
 svg[name=logo-github],
 svg[name=logo-linkedin],
-.redes_sociais>a>li {
+.redes_sociais>li>a {
     color: var(--cor-1);
     transition: 500ms;
 }
@@ -111,19 +123,19 @@ svg[name=logo-linkedin] {
     transition: 100ms;
 }
 
-.redes_sociais>a {
+.redes_sociais>li {
     margin: 1em .5em;
 }
 
-.redes_sociais>a>li {
-    display: block;
+.redes_sociais>li>a {
+    display: flex;
     width: 100%;
     height: 100%;
     line-height: 28px;
     font-family: 'Belanosima', sans-serif;
 }
 
-.redes_sociais>a>li>svg:hover,
+.redes_sociais>li>a>svg:hover,
 .icon_tema:hover{
     color: var(--cor-verde);
     transition: 200ms;

@@ -5,13 +5,12 @@ export default function LinkDestacado({ children, to, menuAberto, setMenuAberto 
     const localizacao = useLocation()
 
     return (
-        <Link 
-            to={ to } 
-            onClick={ () => { menuAberto && setMenuAberto(!menuAberto) }}
-        >
-            <li className={ localizacao.pathname === '/' + to ? styles.selecionado : '' }>
-                <p>{children}</p>
-            </li>
-        </Link>
+            <Link
+                className={ `${'linkDestacado'} ${localizacao.pathname === '/' + to ? styles.selecionado : ''}` }
+                to={ to } 
+                onClick={ () => { menuAberto && setMenuAberto(!menuAberto) }}
+            >
+                    <p>{children}</p>
+            </Link>
     )
 }

@@ -1,27 +1,27 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Menu.module.css'
 import { FaLinkedin, FaGithub } from "react-icons/fa"
 import { BiAdjust } from "react-icons/bi"
-import { useEffect, useRef, useState } from 'react'
 import LinkDestacado from 'Components/LinkDestacado'
 import LinkMenuWhatsApp from 'Components/LinkMenuWhatsApp'
 
 export default function Menu() {
     const listMenu = [ 'HOME', 'PROJETOS', 'SOBRE MIM', 'CONTATO' ]
-    const tema__noturno = JSON.parse(localStorage.getItem('tema__noturno'))
-    const [noturno, setNoturno] = useState(tema__noturno)
+    const tema__localStorage = JSON.parse(localStorage.getItem('tema__noturno'))
+    const [noturno, setNoturno] = useState(tema__localStorage)
     const icon__tema = useRef(null)
-    const tema = document.documentElement.style
-
+    
     const numeroWhats = '554199497870'
     const mensagemWhats = 'Olá, adorei seu portfólio, vamos conversar?'
-
+    
     useEffect(() => {
+        const tema = document.documentElement.style
 
         function testarTema() {
-            if (tema__noturno === false) {
+            if (noturno === false) {
                 temaSite(noturno)
-            }else if (tema__noturno === true) {
+            }else if (noturno === true) {
                 temaSite(noturno)
             }else {
                 setNoturno(false)
@@ -29,28 +29,29 @@ export default function Menu() {
                 temaSite(noturno)
             }
         }
+
+        function temaSite(temaSite) {
+            if (!temaSite) {
+                tema.setProperty('--cor-1', '#202734')
+                tema.setProperty('--cor-2', '#f4f4f4')
+            }else {
+                tema.setProperty('--cor-1', '#f4f4f4')
+                tema.setProperty('--cor-2', '#202734')
+            }
+        }
     
         testarTema()
     },[noturno])
 
-    function temaSite(temaSite) {
-        if (!temaSite) {
-            tema.setProperty('--cor-1', '#202734')
-            tema.setProperty('--cor-2', '#f4f4f4')
-        }else {
-            tema.setProperty('--cor-1', '#f4f4f4')
-            tema.setProperty('--cor-2', '#202734')
-        }
-    }
 
     function mudarTema() {
             
         if (noturno){
             localStorage.setItem('tema__noturno', false)
-            temaSite(noturno)
+            setNoturno(false)
         }else if (!noturno) {
             localStorage.setItem('tema__noturno', true)
-            temaSite(noturno)
+            setNoturno(true)
         }
         
     }
@@ -80,22 +81,36 @@ export default function Menu() {
                 <nav className={styles.navegacao}>
                     <ul>
                         {
-                            listMenu.map( item => (
-                                <LinkDestacado to={ item === 'HOME' ? '' : item.toLowerCase().replace(/\s+/g, '') }>{item}</LinkDestacado>
-                                ))
+                            listMenu.map( (item, index) => (
+                                <li key={ index }>
+                                    <LinkDestacado
+                                        key={ index }
+                                        to={ item === 'HOME' ? '' : item.toLowerCase().replace(/\s+/g, '') }
+                                    >
+                                        { item }</LinkDestacado>
+                                </li>
+                            ))
                         }
             
                         <ul className={styles.redes_sociais}>
-                            <Link to='https://github.com/DavidHSCruz' target='_blank'>
-                                <li>
+                            <li>
+                                <Link 
+                                    to='https://github.com/DavidHSCruz'
+                                    target='_blank'
+                                    area-label='Abrir perfil do github'
+                                >
                                     <FaGithub name="logo-github"/>
-                                </li>
-                            </Link>
-                            <Link to='https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/' target='_blank'>
-                                <li>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link 
+                                    to='https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/'
+                                    target='_blank'
+                                    area-label='Abrir perfil do linkedin'
+                                >
                                     <FaLinkedin name="logo-linkedin"/>
-                                </li>
-                            </Link>
+                                </Link>
+                            </li>
                         </ul>
             
                     </ul>
@@ -104,15 +119,8 @@ export default function Menu() {
                 <button 
                     className={styles.botao_altera_tema}
                     type="button"
-                    onClick={ () => {
-                        if (noturno) {
-                            setNoturno(false)
-                            mudarTema()
-                        }else {
-                            setNoturno(true)
-                            mudarTema()
-                        }
-                    }}
+                    aria-label='Alterar tema'
+                    onClick={ mudarTema }
                 >
                     <BiAdjust
                         ref={icon__tema}

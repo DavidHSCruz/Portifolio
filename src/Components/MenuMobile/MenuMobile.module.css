@@ -38,12 +38,17 @@
             overflow: hidden;
             transition: 500ms;
 
+            
             &>ul {
                 padding-top: 100px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
-
+                
+                &>li {
+                    margin: 1em;
+                }
+                
                 &>a {
                     margin: 1em 0;
                 }
@@ -64,7 +69,7 @@
 .icon_tema,
 svg[name=logo-github],
 svg[name=logo-linkedin],
-.redes_sociais>a>li {
+.redes_sociais>li>a {
     color: var(--cor-1);
     transition: 500ms;
 }
@@ -81,11 +86,11 @@ svg[name=logo-linkedin] {
     transition: 100ms;
 }
 
-.redes_sociais>a {
+.redes_sociais>li {
     margin: 1em .5em 1em 0;
 }
 
-.redes_sociais>a>li {
+.redes_sociais>li>a {
     display: block;
     width: 100%;
     height: 100%;
@@ -93,7 +98,7 @@ svg[name=logo-linkedin] {
     font-family: 'Belanosima', sans-serif;
 }
 
-.redes_sociais>a>li>svg:hover,
+.redes_sociais>li>a>svg:hover,
 .icon_tema:hover{
     color: var(--cor-verde);
     transition: 200ms;
