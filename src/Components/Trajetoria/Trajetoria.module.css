@@ -1,9 +1,10 @@
-.tragetoria {
+.trajetoria {
     display: block;
     font-size: 1.2em;
     text-align: center;
     margin: auto;
     width: 85%;
+    padding: 1px;
 
     &>h2 {
         font-size: 1.5em;
@@ -16,7 +17,7 @@
 }
 
 @media(min-width: 426px) {
-    .tragetoria {
+    .trajetoria {
         &>p {
             width: 50%;
         }
@@ -38,7 +39,7 @@
     }
 }
 @media(max-width: 425px) {
-    .tragetoria>p {
+    .trajetoria>p {
         width: 100%;
         text-align: center;
     }

@@ -1,11 +1,11 @@
-import styles from './Tragetoria.module.css'
+import styles from './Trajetoria.module.css'
 
-export default function Tragetoria({ title }) {
+export default function Trajetoria({ title }) {
     return(
-        <section className={styles.tragetoria}>
+        <section className={styles.trajetoria}>
             <h2>{title}</h2>
             <p>
-                Cresci ouvindo que tenho um perfil autoditada.<br/>
+                Cresci ouvindo que tenho um perfil autodidata.<br/>
                 Sempre me interessei por design e tecnologia e, hoje,<br/>
                 vejo que isso tem ampliado meus horizontes.
             </p>

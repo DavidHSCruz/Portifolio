@@ -3,7 +3,7 @@
   "short_name": "Portfólio",
   "theme_color": "#202734",
   "background_color": "#f4f4f4",
-  "display": "standalone",
+  "display": "fullScreen",
   "orientation": "",
   "scope": "/",
   "start_url": "/",

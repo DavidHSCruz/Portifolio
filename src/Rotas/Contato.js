@@ -3,7 +3,7 @@ import Cards from "Components/Cards";
 import LinkWhatsApp from "Components/LinkWhatsApp";
 import Trajetoria from "Components/Trajetoria";
 
-export default function Home() {
+export default function Contato() {
     const numeroWhats = '554199497870'
     const mensagemWhats = 'Olá, adorei seu portfólio, vamos conversar?'
 
