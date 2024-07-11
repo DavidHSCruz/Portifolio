@@ -1,0 +1,107 @@
+.contato + div {
+    background-color: black;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    transition: 500ms;
+}
+.contato.aberto + div {
+    opacity: .4;
+    cursor: pointer;
+    pointer-events: all;
+}
+.contato {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: var(--cor-verde);
+    width: clamp(300px, 40%, 400px);
+    height: 60%;
+    padding: 1em;
+    display: block;
+    z-index: 2;
+    &>button {
+        font-family: 'Belanosima', sans-serif;
+        position: absolute;
+        right: 1em;
+    }
+    &>form {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &>div {
+            width: clamp(200px, 80%, 300px);
+            &>label {
+                display: flex;
+                flex-direction: column;
+                cursor: text;
+                &>span {
+                    transform: translateY(-80px);
+                    color: var(--cor-2);
+                    opacity: .75;
+                    font-size: .9em;
+                    transition: 200ms ease-out;
+                }
+                &>input {
+                    height: 3em;
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    border-bottom: 1px solid var(--cor-2);
+                    margin-bottom: 2em;
+                    transition: 200ms ease-out;
+                    &:focus {
+                        border-bottom: 1px solid var(--cor-1); 
+                    }
+                    &:focus + span {
+                        color: var(--cor-1);
+                    }
+                }
+            }
+        }
+        &>textarea {
+            width: clamp(200px, 80%, 300px);
+            height: 10em;
+            resize: none;
+            outline: none;
+            background-color: var(--cor-1);
+            color: var(--cor-2);
+            border: solid 1px var(--cor-2);
+            padding: 1em;
+            margin-bottom: 3em;
+            font-family: 'Belanosima', sans-serif;
+            transition: 500ms;
+            &::placeholder {
+                color: var(--cor-2);
+                opacity: .75;
+            }
+        }
+        &>button {
+            background-color: var(--cor-2);
+            width: clamp(80px, 40%, 150px);
+            height: 3em;
+            color: var(--cor-1);
+            font-family: 'Belanosima', sans-serif;
+            transition: 500ms;
+        }
+
+    }
+
+    transition: 500ms ease-in-out;
+    top: 40%;
+    opacity: 0;
+    pointer-events: none;
+    &.aberto {
+        top: 50%;
+        pointer-events: all;
+        opacity: 1;
+        &>div {
+            opacity: .2;
+        }
+    }
+}

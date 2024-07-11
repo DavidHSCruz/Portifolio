@@ -5,6 +5,7 @@ import { FaLinkedin, FaGithub } from "react-icons/fa"
 import { BiAdjust } from "react-icons/bi"
 import LinkDestacado from 'Components/LinkDestacado'
 import LinkMenuWhatsApp from 'Components/LinkMenuWhatsApp'
+import { ModalContato } from 'Components/ModalContato'
 
 export default function Menu() {
     const listMenu = [ 'HOME', 'PROJETOS', 'SOBRE MIM' ]
@@ -55,10 +56,6 @@ export default function Menu() {
             setNoturno(true)
         }
         
-    }
-
-    function handleClick(e) {
-        e.preventDefault()
     }
 
     return(
@@ -137,35 +134,8 @@ export default function Menu() {
                 </button>
             </section>
 
-            <section className={`${styles.contato} ${contatoAberto && styles.aberto}`}>
-                <button onClick={() => setContatoAberto(false)}>X</button>
-                <form>
-                    <div>
-                        
-                        <label>
-                            <input type="text" name='nome'/>
-                            <span>Nome</span>
-                        </label>
-
-                        <label>
-                            <input type="text" name='empresa'/>
-                            <span>Empresa</span>
-                        </label>
-
-                        <label>
-                            <input type="email" name='email'/>
-                            <span>E-mail</span>
-                        </label>
-                    </div>
-
-                    <textarea placeholder="Digite aqui sua mensagem..." />
-
-                    <button type="submit" onClick={(e) => handleClick(e)}>Enviar</button>
-                </form>
-            </section>
-            <div onClick={() => setContatoAberto(false)}></div>
-            
-            <LinkMenuWhatsApp numeroWhats={numeroWhats} mensagemWhats={mensagemWhats} fixed/>
+            <ModalContato contatoAberto={contatoAberto} setContatoAberto={setContatoAberto} />
+            <LinkMenuWhatsApp numeroWhats={numeroWhats} mensagemWhats={mensagemWhats} fixed />
 
         </header>
     )
