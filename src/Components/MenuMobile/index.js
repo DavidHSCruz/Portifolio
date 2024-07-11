@@ -11,6 +11,7 @@ export default function Menu() {
     const tema__localStorage = JSON.parse(localStorage.getItem('tema__noturno'))
     const [noturno, setNoturno] = useState(tema__localStorage)
     const [menuAberto, setMenuAberto] = useState(false)
+    const [ contatoAberto, setContatoAberto ] = useState(false)
     const icon__tema = useRef(null)
     const menu__hamburguer = useRef(null)
     const menu__hamburguer__linha1 = useRef(null)
@@ -107,6 +108,8 @@ export default function Menu() {
                                         to={ item === 'HOME' ? '' : item.toLowerCase().replace(/\s+/g, '') }
                                         menuAberto={menuAberto}
                                         setMenuAberto={setMenuAberto}
+                                        contatoAberto={contatoAberto}
+                                        setContatoAberto={setContatoAberto}
                                     >
                                         { item }</LinkDestacado>
                                 </li>

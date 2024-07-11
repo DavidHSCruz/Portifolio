@@ -7,10 +7,11 @@ import LinkDestacado from 'Components/LinkDestacado'
 import LinkMenuWhatsApp from 'Components/LinkMenuWhatsApp'
 
 export default function Menu() {
-    const listMenu = [ 'HOME', 'PROJETOS', 'SOBRE MIM', 'CONTATO' ]
+    const listMenu = [ 'HOME', 'PROJETOS', 'SOBRE MIM' ]
     const tema__localStorage = JSON.parse(localStorage.getItem('tema__noturno'))
     const [noturno, setNoturno] = useState(tema__localStorage)
     const icon__tema = useRef(null)
+    const [ contatoAberto, setContatoAberto ] = useState(false)
     
     const numeroWhats = '554199497870'
     const mensagemWhats = 'Olá, adorei seu portfólio, vamos conversar?'
@@ -56,6 +57,10 @@ export default function Menu() {
         
     }
 
+    function handleClick(e) {
+        e.preventDefault()
+    }
+
     return(
         <header className={styles.menu}>
             <section className={styles.menuComponent}>
@@ -91,6 +96,9 @@ export default function Menu() {
                                 </li>
                             ))
                         }
+                            <li onClick={() => setContatoAberto(true)}>
+                                <p>CONTATO</p>
+                            </li>
             
                         <ul className={styles.redes_sociais}>
                             <li>
@@ -128,6 +136,34 @@ export default function Menu() {
                     />
                 </button>
             </section>
+
+            <section className={`${styles.contato} ${contatoAberto && styles.aberto}`}>
+                <button onClick={() => setContatoAberto(false)}>X</button>
+                <form>
+                    <div>
+                        
+                        <label>
+                            <input type="text" name='nome'/>
+                            <span>Nome</span>
+                        </label>
+
+                        <label>
+                            <input type="text" name='empresa'/>
+                            <span>Empresa</span>
+                        </label>
+
+                        <label>
+                            <input type="email" name='email'/>
+                            <span>E-mail</span>
+                        </label>
+                    </div>
+
+                    <textarea placeholder="Digite aqui sua mensagem..." />
+
+                    <button type="submit" onClick={(e) => handleClick(e)}>Enviar</button>
+                </form>
+            </section>
+            <div onClick={() => setContatoAberto(false)}></div>
             
             <LinkMenuWhatsApp numeroWhats={numeroWhats} mensagemWhats={mensagemWhats} fixed/>
 
