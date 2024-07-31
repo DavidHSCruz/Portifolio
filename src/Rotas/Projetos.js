@@ -1,5 +1,5 @@
-import Cards from "Components/Cards";
 import LinkWhatsApp from "Components/LinkWhatsApp";
+import PrincipaisProjetos from "Components/PrincipaisProjetos";
 
 export default function Projetos() {
     const numeroWhats = '554199497870'
@@ -7,7 +7,7 @@ export default function Projetos() {
 
     return(
         <main>
-            <Cards title='PRINCIPAIS PROJETOS' />
+            <PrincipaisProjetos />
             <LinkWhatsApp numeroWhats={numeroWhats} mensagemWhats={mensagemWhats}/>
         </main>
     )

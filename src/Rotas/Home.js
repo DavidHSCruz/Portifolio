@@ -1,6 +1,6 @@
 import Banner from "Components/Banner";
-import Cards from "Components/Cards";
 import LinkWhatsApp from "Components/LinkWhatsApp";
+import PrincipaisProjetos from "Components/PrincipaisProjetos";
 import Trajetoria from "Components/Trajetoria";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
     return(
         <main>
             <Banner />
-            <Cards title='PRINCIPAIS PROJETOS' />
+            <PrincipaisProjetos />
             <Trajetoria title='MINHA TRAJETÓRIA' />
             <LinkWhatsApp numeroWhats={numeroWhats} mensagemWhats={mensagemWhats}/>
         </main>
