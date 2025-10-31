@@ -1,3 +1,4 @@
+import { Avatar } from 'Components/Avatar'
 import styles from './Banner.module.css'
 import fotoPerfil from 'Imagens/fotoPerfil/eu.jpg'
 import { IoLogoCss3, IoLogoHtml5, IoLogoJavascript, IoLogoNodejs } from "react-icons/io"
@@ -9,7 +10,7 @@ export default function Banner() {
             <div className={styles.inicio_esquerda}>
                 <div>
                     <h1>OLÁ!</h1>
-                    <h2>Bem vindo ao meu portifólio.</h2>
+                    <h2>Bem vindo ao meu portfólio.</h2>
                     <div className={styles.tecnologias}>
                         <IoLogoHtml5 />
                         <IoLogoCss3 />
@@ -21,12 +22,7 @@ export default function Banner() {
                 </div>
             </div>
             <div className={styles.inicio_direita}>
-                <div>
-                    <div>
-                        <img src={fotoPerfil} alt="Minha foto de perfil" />
-                        <span></span>
-                    </div>
-                </div>
+                <Avatar />
             </div>
         </section>
     )

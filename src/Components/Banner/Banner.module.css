@@ -46,41 +46,10 @@ section.bannerContainer {
 }
 
 .inicio_direita {
-    align-items: center;
+    width: 50%;
+    display: flex;
     justify-content: center;
-
-    &>div {
-        position: relative;
-        bottom: 250px;
-    }
-
-    &>div>div {
-        border-radius: 50%;
-        height: 500px;
-        width: 500px;
-
-        &>img {
-            border-radius: 50%;
-            left: 150px;
-            position: relative;
-            top: 100px;
-            transition: .5s;
-            width: 400px;
-            z-index: 2;
-        }
-
-        &>span {
-            position: absolute;
-            border-radius: 50%;
-            height: 440px;
-            left: 130px;
-            top: 80px;
-            transition: .5s;
-            width: 440px;
-            z-index: 0;
-            opacity: 1;
-        }
-    }
+    align-items: center;
 }
 
 @keyframes entrada_titulo {
@@ -111,17 +80,6 @@ section.bannerContainer {
         display: flex;
         background: var(--cor-2);
         width: 50%;
-        transition: 500ms;
-        &>div>div {
-            background-color: var(--cor-1);
-            position: absolute;
-            right: -200px;
-            scale: 100%;
-            transition: 500ms;
-            &>span {
-                background-color: var(--cor-2);
-            }
-        }
     }
 }
 @media(min-width:1025px) and ( max-width:1440px) {
@@ -146,17 +104,6 @@ section.bannerContainer {
         display: flex;
         background: var(--cor-2);
         width: 0%;
-        transition: 500ms;
-        &>div>div {
-            background-color: var(--cor-2);
-            position: absolute;
-            right: 500px;
-            scale: 80%;
-            transition: 500ms;
-            &>span {
-                background-color: var(--cor-1);
-            }
-        }
     }
 }
 @media(min-width:426px) and (max-width:1024px) {
@@ -182,14 +129,6 @@ section.bannerContainer {
         position: absolute;
         display: flex;
         width: 100%;
-        &>div>div {
-            background-color: var(--cor-2);
-            scale: 70%;
-            transform: translateY(-70%);
-            &>span {
-                background-color: var(--cor-1);
-            }
-        }
     }
 }
 @media(max-width:425px) {
