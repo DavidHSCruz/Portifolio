@@ -1,19 +1,24 @@
 import gsap from 'gsap'
 import React, { useEffect, useRef, useState } from 'react'
+import styles from './Avatar.module.css'
 
 export const Avatar = () => {
-    const boxAvatar = useRef(null)
+    const boxAvatarRef = useRef(null)
+    const avatarRef = useRef(null)
+    const q = gsap.utils.selector(avatarRef)
+
     const [boxAvatarOver, setBoxAvatarOver] = useState(false)
+    const [earLeftTop, setEarLeftTop] = useState(null)
     
     useEffect(() => {
-        const rect = boxAvatar.current.getBoundingClientRect()
-        const eyes = document.querySelectorAll('.eye')
-
+        const eyes = q('.eye')
+        
         if (!boxAvatarOver) {
             defaultAnimation()
         }
-
+        
         function handleMouseMove(e) {
+            const rect = boxAvatarRef.current.getBoundingClientRect()
             const { pageX: mouseX, pageY: mouseY } = e
             const { top, bottom, left, right } = rect
             
@@ -62,6 +67,10 @@ export const Avatar = () => {
                     dx = Math.cos(angle) * radius
                     dy = Math.sin(angle) * radius
                 }
+
+                if(dx < -7) setEarLeftTop(false)
+                if(dx > 7) setEarLeftTop(true)
+                if(dx > -7 && dx < 7) setEarLeftTop(null)
 
                 //animações
                     //cabelos
@@ -208,38 +217,72 @@ export const Avatar = () => {
         }
     }, [boxAvatarOver])
 
+    const earLeft =  
+        <g className='earLeft' id="earLeft" style={{filter: !earLeftTop || earLeftTop === null ? 'brightness(.9) contrast(1.3)' : ''}}>
+            <mask id="mask0_2_99" style={{maskType: 'alpha'}} maskUnits="userSpaceOnUse" x="26" y="136" width="24"
+                height="61">
+                <rect id="cut" x="26" y="136.695" width="24" height="60" fill="#C79E70" />
+            </mask>
+            <g mask="url(#mask0_2_99)">
+                <rect id="earLeft_2" x="26" y="136.695" width="40" height="60" rx="15" fill="#C79E70" />
+                <path id="detail1"
+                    d="M30 150.695C30 145.172 34.4772 140.695 40 140.695H41C45.9706 140.695 50 144.724 50 149.695V184.695C50 189.113 46.4183 192.695 42 192.695H34C31.7909 192.695 30 190.904 30 188.695V150.695Z"
+                    fill="#C78E70" />
+                <path id="detail2"
+                    d="M29 145.695C29 145.142 29.4477 144.695 30 144.695H37C42.5228 144.695 47 149.172 47 154.695V190.695C47 192.904 45.2091 194.695 43 194.695H37C32.5817 194.695 29 191.113 29 186.695V145.695Z"
+                    fill="#C79E70" />
+                <circle id="detail3" cx="49.5" cy="172.195" r="10.5" fill="#C78E70" />
+                <circle id="detail4" cx="50.5" cy="172.195" r="6.5" fill="#C79E70" />
+            </g>
+        </g>
+
+    const earRight = 
+        <g className='earRight' id="earRight" style={{filter: earLeftTop || earLeftTop === null ? 'brightness(.9) contrast(1.3)' : ''}}>
+            <mask id="mask1_2_98" style={{maskType: 'alpha'}} maskUnits="userSpaceOnUse" x="250" y="136" width="24"
+                height="61">
+                <rect id="cut_2" x="250" y="136.695" width="24" height="60" fill="#C79E70" />
+            </mask>
+            <g mask="url(#mask1_2_98)">
+                <rect id="earRight_2" x="234" y="136.695" width="40" height="60" rx="15" fill="#C79E70" />
+                <path id="detail1_2"
+                    d="M270 150.695C270 145.172 265.523 140.695 260 140.695H259C254.029 140.695 250 144.724 250 149.695V184.695C250 189.113 253.582 192.695 258 192.695H266C268.209 192.695 270 190.904 270 188.695V150.695Z"
+                    fill="#C78E70" />
+                <path id="detail2_2"
+                    d="M271 145.695C271 144.59 270.105 143.695 269 143.695H263C257.477 143.695 253 148.172 253 153.695V190.695C253 192.904 254.791 194.695 257 194.695H263C267.418 194.695 271 191.113 271 186.695V145.695Z"
+                    fill="#C79E70" />
+                <ellipse id="detail3_2" cx="10" cy="10.5" rx="10" ry="10.5"
+                    transform="matrix(-1 0 0 1 261 161.695)" fill="#C78E70" />
+                <circle id="detail4_2" cx="6.5" cy="6.5" r="6.5" transform="matrix(-1 0 0 1 258 165.695)"
+                    fill="#C79E70" />
+            </g>
+        </g>
+
+    function getEarBack() {
+        if(earLeftTop !== null) {
+            if(!earLeftTop) return earLeft
+            else return earRight
+        }else return(
+            <>
+                {earLeft}
+                {earRight}
+            </>
+        )
+    }
+
+    function getEarTop() {
+        if(earLeftTop !== null) {
+            if(earLeftTop) return earLeft
+            else return earRight
+        }
+    }
+
 
     return (
-        <div style={{ 
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',  
-            position: 'relative',
-            width: '80%',
-            aspectRatio: '1/1'
-        }}>
-            <div 
-                ref={boxAvatar} 
-                style={{
-                    position: 'absolute',
-                    width: '100%', 
-                    aspectRatio: '1/1',
-                    zIndex: 0
-                }}
-            ></div>
-            <div style={{ 
-                backgroundColor: '#3282ff', 
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                position: 'absolute',
-                overflow: 'hidden',
-                width: '50%', 
-                height: '60%',
-                borderRadius: '50%',
-                zIndex: 1
-            }}>
-                <svg 
+        <div className={styles.container}>
+            <div ref={boxAvatarRef} className={styles.boxMouseMove}></div>
+            <div className={styles.containerSVG}>
+                <svg
+                    ref={avatarRef} 
                     width='300' height='400'
                     viewBox='0 0 500 600'
                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -248,8 +291,9 @@ export const Avatar = () => {
                         <g className="neck">
                             <rect id="neck_2" x="105" y="228.695" width="90" height="147" rx="45" fill="#C79E70" />
                             <g className="head">
-                                <rect className='earLeft' id="earLeft" x="26" y="136.695" width="40" height="60" rx="15" fill="#C79E70" />
-                                <rect className='earRight' id="earRight" x="234" y="136.695" width="40" height="60" rx="15" fill="#C79E70" />
+
+                                {getEarBack()}
+
                                 <rect id="face" x="50" y="43.6948" width="200" height="250" rx="60" fill="#C79E70" />
                                 <g id="mouth">
                                     <rect className='jaw' id="jaw" x="81" y="203.695" width="138" height="68" rx="16" fill="#C79E70" />
@@ -264,30 +308,52 @@ export const Avatar = () => {
                                         <rect className='gum' id="gum" x="77" y="195.695" width="146" height="23" rx="11.5" fill="#854C4C" />
                                     </g>
                                 </g>
+
                                 <g className='eyes' id="eyes">
                                     <g id="eyeLeft">
-                                        <circle className='eye' id="eye" cx="106.5" cy="148.695" r="29.5" fill="#D9D9D9" />
-                                        <g className='pupil'>
-                                            <circle id="pupil_2" cx="106" cy="148.695" r="15" fill="#593D2F" />
-                                            <circle id="iris" cx="106" cy="148.695" r="4" fill="#302A26" />
+                                        <mask id="mask3_2_16" style={{maskType: "alpha"}} maskUnits="userSpaceOnUse" x="77" y="119"
+                                            width="59" height="60">
+                                            <circle id="cut_4" cx="106.5" cy="148.695" r="29.5" fill="#D9D9D9" />
+                                        </mask>
+                                        <g mask="url(#mask3_2_16)">
+                                            <circle className='eye' id="eye" cx="106.5" cy="148.695" r="29.5" fill="#D9D9D9" />
+                                            <g className='pupil' id="pupil">
+                                                <circle id="pupil_2" cx="106" cy="148.695" r="15" fill="#593D2F" />
+                                                <circle id="iris" cx="106" cy="148.695" r="4" fill="#302A26" />
+                                            </g>
+                                            <circle id="highlight" cx="94.5" cy="141.195" r="7.5" fill="white" />
+                                            <path className='eyelidBottom' id="eyelidBottom"
+                                                d="M143 164.857C138.572 160.429 73 160.857 69 164.857C69 164.857 69 196.929 104.5 196.929C143 196.929 143 164.857 143 164.857Z"
+                                                fill="#C79E70" />
+                                            <path className='eyelidTop' id="eyelidTop"
+                                                d="M69 131.767C73.4282 136.195 139 135.766 143 131.767C143 131.767 143 99.6948 107.5 99.6948C69 99.6948 69 131.767 69 131.767Z"
+                                                fill="#C79E70" />
                                         </g>
-                                        <circle id="highlight" cx="93" cy="142.695" r="4" fill="white" />
-                                        <path className='eyelidBottom' id="eyelidBottom" d="M143 164.857C138.572 160.429 73 160.857 69 164.857C69 164.857 69 196.929 104.5 196.929C143 196.929 143 164.857 143 164.857Z" fill="#C79E70" />
-                                        <path className='eyelidTop' id="eyelidTop" d="M69 131.767C73.4282 136.195 139 135.766 143 131.767C143 131.767 143 99.6948 107.5 99.6948C69 99.6948 69 131.767 69 131.767Z" fill="#C79E70" />
-                                        <rect className='eyebrowLeft' id="eyebrow" x="76" y="109.695" width="60" height="20" rx="9" fill="#25201D" />
                                     </g>
                                     <g id="eyeRight">
-                                        <circle className='eye' id="eye_2" cx="194.5" cy="148.695" r="29.5" fill="#D9D9D9" />
-                                        <g className='pupil'>
-                                            <circle id="pupil_4" cx="194" cy="148.695" r="15" fill="#593D2F" />
-                                            <circle id="iris_2" cx="194" cy="148.695" r="4" fill="#302A26" />
+                                        <mask id="mask4_2_16" style={{maskType: "alpha"}} maskUnits="userSpaceOnUse" x="165" y="119"
+                                            width="59" height="60">
+                                            <circle id="cut_5" cx="194.5" cy="148.695" r="29.5" fill="#D9D9D9" />
+                                        </mask>
+                                        <g mask="url(#mask4_2_16)">
+                                            <circle className='eye' id="eye_2" cx="194.5" cy="148.695" r="29.5" fill="#D9D9D9" />
+                                            <g className='pupil' id="pupil_3">
+                                                <circle id="pupil_4" cx="194" cy="148.695" r="15" fill="#593D2F" />
+                                                <circle id="iris_2" cx="194" cy="148.695" r="4" fill="#302A26" />
+                                            </g>
+                                            <circle id="highlight_2" cx="182.5" cy="141.195" r="7.5" fill="white" />
+                                            <path className='eyelidBottom' id="eyelidBottom_2"
+                                                d="M231 164.857C226.572 160.429 161 160.857 157 164.857C157 164.857 157 196.929 192.5 196.929C231 196.929 231 164.857 231 164.857Z"
+                                                fill="#C79E70" />
+                                            <path className='eyelidTop' id="eyelidTop_2"
+                                                d="M157 131.767C161.428 136.195 227 135.766 231 131.767C231 131.767 231 99.6948 195.5 99.6948C157 99.6948 157 131.767 157 131.767Z"
+                                                fill="#C79E70" />
                                         </g>
-                                        <circle id="highlight_2" cx="181" cy="142.695" r="4" fill="white" />
-                                        <path className='eyelidBottom' id="eyelidBottom_2" d="M231 164.857C226.572 160.429 161 160.857 157 164.857C157 164.857 157 196.929 192.5 196.929C231 196.929 231 164.857 231 164.857Z" fill="#C79E70" />
-                                        <path className='eyelidTop' id="eyelidTop_2" d="M157 131.767C161.428 136.195 227 135.766 231 131.767C231 131.767 231 99.6948 195.5 99.6948C157 99.6948 157 131.767 157 131.767Z" fill="#C79E70" />
-                                        <rect className='eyebrowRight' id="eyebrow_2" x="164" y="109.695" width="60" height="20" rx="9" fill="#25201D" />
                                     </g>
+                                    <rect className='eyebrowLeft' id="eyebrowLeft" x="76" y="109.695" width="60" height="20" rx="9" fill="#25201D" />
+                                    <rect className='eyebrowRight' id="eyebrowRight" x="164" y="109.695" width="60" height="20" rx="9" fill="#25201D" />
                                 </g>
+
                                 <g id="glasses">
                                     <g id="astes">
                                         <mask id="mask1_2_16" style={{maskType: "alpha"}} maskUnits="userSpaceOnUse" x="50" y="43" width="200" height="251">
@@ -308,6 +374,9 @@ export const Avatar = () => {
                                     <path className='hairTop' id="hairTop" d="M234.499 41.1948L217.499 56.1948C99 105.195 27.4995 83.1948 27.4995 56.1948C27.4995 29.1948 74.4995 2.69479 132.999 0.194785C191.499 -2.30522 245.5 19.6948 234.499 41.1948Z" fill="#25201D" />
                                 </g>
                                 <rect className='nose' id="nose" x="120" y="141.695" width="60" height="95" rx="20" fill="#C78E70" />
+
+                                {getEarTop()}
+
                             </g>
                         </g>
                     </g>

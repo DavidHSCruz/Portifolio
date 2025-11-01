@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 80%;
+    aspect-ratio: 1/1;
+
+    &>.boxMouseMove {
+        position: absolute;
+        width: 100%;
+        aspect-ratio: 1/1;
+        z-index: 0;
+    }
+
+    &>.containerSVG {
+        background-color: #3282ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        overflow: hidden;
+        width: 50%;
+        height: 60%;
+        border-radius: 50%;
+        z-index: 1;
+    }
+}
