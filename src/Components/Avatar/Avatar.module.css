@@ -14,7 +14,7 @@
     }
 
     &>.containerSVG {
-        background-color: #3282ff;
+        background-color: #0c0f14;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -24,5 +24,6 @@
         height: 60%;
         border-radius: 50%;
         z-index: 1;
+        pointer-events: none;
     }
 }

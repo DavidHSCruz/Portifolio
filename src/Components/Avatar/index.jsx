@@ -6,216 +6,210 @@ export const Avatar = () => {
     const boxAvatarRef = useRef(null)
     const avatarRef = useRef(null)
     const q = gsap.utils.selector(avatarRef)
+    const eyes = q('.eye')
 
-    const [boxAvatarOver, setBoxAvatarOver] = useState(false)
+    const tl = useRef(null)
+    const tlEye = useRef(null)
+
     const [earLeftTop, setEarLeftTop] = useState(null)
+
+    //set origem animation
+    function setPose() { eyes.forEach(eye => {
+            const pupil = eye.nextElementSibling
+            gsap.set(pupil, { transformOrigin: '50% 50%', y: 0, x: 0, scaleX: 1, scaleY: 1 })
+        })
+
+        gsap.set('.jaw, .mouth', { transformOrigin: '100% 0%', y: 0., x: 0, scaleX: .5, scaleY: .5 })
+        gsap.set('.neck, .body', { transformOrigin: '50% 90%' })
+        gsap.set('.hairLeft', { transformOrigin: "left" })
+        gsap.set('.hairRight', { transformOrigin: "right" })
+        gsap.set('.nose', { transformOrigin: "50% 0%" })
+
+        gsap.set('.body, .neck, .head, .glasses, .teethTop, .teethBottom, .eyelidTop, .eyelidBottom, .gum, .hairTop, .hairLeft, .hairRight, .earLeft, .earRight, .pupil, .eyebrowLeft, .eyebrowRight, .nose', { y: 0, x: 0, scaleX: 1, scaleY: 1, rotation: 0 })
+    }
+
+    function eyeAnimation(clientX, clientY) {
+        eyes.forEach(eye => {
+            const pupil = eye.nextElementSibling
+            const { left, top, width, height } = eye.getBoundingClientRect()
+            
+            //centro dos olhos
+            const centerX = left + width / 2
+            const centerY = top + height / 2
+
+            // Distância entre mouse e centro
+            let dx = clientX - centerX
+            let dy = clientY - centerY
+
+            // Raio máximo do movimento (limite circular)
+            const radius = width / 2 - pupil.clientWidth / 2
+            const distance = Math.sqrt(dx * dx + dy * dy)
+            
+            // Divide o movimento (estilo "seguindo suavemente")
+            dx /= 20
+            dy /= 20
+
+            // Impede que saia do círculo
+            const limitedDistance = Math.sqrt(dx * dx + dy * dy)
+            if (limitedDistance > radius) {
+                const angle = Math.atan2(dy, dx)
+                dx = Math.cos(angle) * radius
+                dy = Math.sin(angle) * radius
+            }
+
+            //pupilas
+            gsap.to(pupil, { x: dx, y: dy, duration: 0.3, ease: "power2.out" })
+        })
+    }
+
+    function handleMouseMove(e) {
+        const { clientX, clientY } = e
+        const { left, top, width, height } = boxAvatarRef.current.getBoundingClientRect()
+        //centro da cabeça ao centro dos olhos
+        const centerX = left + width / 2
+        const centerY = top + height / 2 - 60
+        
+        const dx = (clientX - centerX) / 20
+        const dy = (clientY - centerY) / 20
+
+        //orelha que fica à frente dependendo da posição da cabeça
+        if(dx < -7) setEarLeftTop(false)
+        if(dx > 7) setEarLeftTop(true)
+        if(dx > -7 && dx < 7) setEarLeftTop(null)
+
+        //animação movendo o mouse
+            gsap.defaults({ duration: 0.3, ease: "power2.out" })
+            //cabelos
+                //cima
+                gsap.to('.hairTop', { x: dx/2, y: dy/3 })
+                //baixoY
+                gsap.to('.hairLeft, .hairRight', {  y: -dy/4 })
+                //baixoEsquerdaX
+                gsap.to('.hairLeft', {
+                    x: dx >= 0 ? dx/3 : 0,
+                    scaleX: 1 + dx/60
+                })
+                //baixoDireitaX
+                gsap.to('.hairRight', {
+                    x: dx <= 0 ? dx/3 : 0,
+                    scaleX: 1 - dx/60
+                })
+            //orelhas
+                //Y
+                gsap.to('.earLeft, .earRight', { y: -dy/4 })
+                //esquerdaX
+                gsap.to('.earLeft', { x: dx >= 0 ? dx/3 : -dx/2 })
+                //direitaX
+                gsap.to('.earRight', { x: dx <= 0 ? dx/3 : -dx/2 })
+            //nariz
+            gsap.to('.nose', { x: dx/1.2, y: dy/1.2, scaleY: 1 })
+            //olhos
+                //óculos
+                gsap.to('.glasses', { x: dx/2, y: dy/2 })
+                //sobrancelha esquerda
+                gsap.to('.eyebrowLeft', { y: dy/2 })
+                //sobrancelha direita
+                gsap.to('.eyebrowRight', { y: dy < 0 ? dy : dy/1.5 })
+                //pálpebra superior
+                gsap.to('.eyelidTop', { y: dy/2 })
+                //pálpebra inferior
+                gsap.to('.eyelidBottom', { y: dy/5 })
+                //globo ocular
+                gsap.to('.eyes', { x: dx/2, y: dy/2 })
+            //boca
+                //dentes
+                gsap.to('.teethTop, .teethBottom, .gum', { x: dx/4, y: dy/4 })
+                //mandíbula
+                gsap.to('.jaw, .mouth', { x: dx/2, y: dy/2, scaleX: .5, scaleY: .5 })
+            
+            //cabeça
+            gsap.to('.head', {
+                x: dx/10,
+                y: dy/10,
+                duration: 0.5,
+                ease: "power2.out",
+            })
+            
+            //pescoço
+            gsap.to('.neck', {
+                rotate: dx/5,
+                duration: 0.5,
+                ease: "power2.out",
+            })
+            //olhar
+            eyeAnimation(clientX, clientY)
+    }
+
+    function handleMouseLeave() {
+    }
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            setPose()
+        }, avatarRef)
+        
+        return () => ctx.revert() // clean up
+    }, [])
+
+
+
+
+
     
     useEffect(() => {
-        const eyes = q('.eye')
-        
-        if (!boxAvatarOver) {
-            defaultAnimation()
-        }
-        
-        function handleMouseMove(e) {
-            const rect = boxAvatarRef.current.getBoundingClientRect()
-            const { pageX: mouseX, pageY: mouseY } = e
-            const { top, bottom, left, right } = rect
-            
-            if (mouseX > left && mouseX < right && mouseY > top && mouseY < bottom) {
-                setBoxAvatarOver(true)
-                return handleMouseMoveOverBoxAnimation(e)
-            }
-            return setBoxAvatarOver(false)
-        }
-
         function defaultAnimation() {
+            tl.current = gsap.timeline({ 
+                defaults: { 
+                    ease: "power2.inOut",
+                    duration: .3
+            }})
+
             eyes.forEach(eye => {
                 const pupil = eye.nextElementSibling
-                const tl = gsap.timeline({ defaults: { ease: "power2.inOut", duration: .5 } })
+                tlEye.current = gsap.timeline({ 
+                    defaults: { 
+                        ease: "power2.inOut",
+                        duration: .3
+                }})
 
-                tl.to(pupil, { x: 0, y: 0 })
-                .to('.neck', { rotation: 0, y: 0 }, '<')
+                tlEye.current.to(pupil, { 
+                    keyframes: [
+                        { x: 0, y: 0, duration: .5 },
+                        { x: 20, delay: 2, duration: .1 },
+                        { x: -20, delay: .2, duration: .1 },
+                ]})
             })
+
+            tl.current.to('.neck', {
+                keyframes: [
+                    { rotation: 0, duration: .5 },
+                    { rotation: 1, delay: 2, duration: .1 },
+                    { rotation: -1, delay: .2, duration: .1 },
+            ]}, '<')
+            .to('.head', { keyframes: [
+                {x: 0, duration: .5},
+            ]}, '<')
+            .to('.eyebrowLeft', { keyframes: [
+                { y: 15, delay: 2, duration: .2},
+            ]}, '<')
+            .to('.eyebrowRight', { keyframes: [
+                { y: 15, delay: 2, duration: .2},
+            ]}, '<')
+            .to('.nose', { keyframes: [
+                { scaleY: .9, duration: .1},
+            ]}, '<')
+            .to('.jaw, .mouth', { keyframes: [
+                { y: -5, duration: .1},
+            ]}, '<')
+            .to('.eyelidTop', { keyframes: [
+                { y: 10, duration: .2},
+            ]})
+            .to('.eyelidBottom', { keyframes: [
+                { y: -10, duration: .2},
+            ]}, '<')
         }
-
-        function handleMouseMoveOverBoxAnimation(e) {
-            eyes.forEach(eye => {
-                const pupil = eye.nextElementSibling
-                const rect = eye.getBoundingClientRect()
-                
-                //centro dos olhos
-                const centerX = rect.left + rect.width / 2
-                const centerY = rect.top + rect.height / 2
-
-                // Distância entre mouse e centro
-                let dx = e.clientX - centerX
-                let dy = e.clientY - centerY
-
-                // Raio máximo do movimento (limite circular)
-                const radius = rect.width / 2 - pupil.clientWidth / 2
-                const distance = Math.sqrt(dx * dx + dy * dy)
-                
-                // Divide o movimento (estilo "seguindo suavemente")
-                dx /= 20
-                dy /= 20
-
-                // Impede que saia do círculo
-                const limitedDistance = Math.sqrt(dx * dx + dy * dy)
-                if (limitedDistance > radius) {
-                    const angle = Math.atan2(dy, dx)
-                    dx = Math.cos(angle) * radius
-                    dy = Math.sin(angle) * radius
-                }
-
-                if(dx < -7) setEarLeftTop(false)
-                if(dx > 7) setEarLeftTop(true)
-                if(dx > -7 && dx < 7) setEarLeftTop(null)
-
-                //animações
-                    //cabelos
-                        //cima
-                        gsap.to('.hairTop', {
-                            x: dx/2,
-                            y: dy/3,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //baixoY
-                        gsap.to('.hairLeft, .hairRight', {
-                            y: -dy/4,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //baixoEsquerdaX
-                        gsap.to('.hairLeft', {
-                            transformOrigin: "left",
-                            x: dx >= 0 ? dx/3 : 0,
-                            scaleX: 1 + dx/60,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //baixoDireitaX
-                        gsap.to('.hairRight', {
-                            transformOrigin: "right",
-                            x: dx <= 0 ? dx/3 : 0,
-                            scaleX: 1 - dx/60,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                    //orelhas
-                        //Y
-                        gsap.to('.earLeft, .earRight', {
-                            y: -dy/4,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //esquerdaX
-                        gsap.to('.earLeft', {
-                            x: dx >= 0 ? dx/3 : -dx/2,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //direitaX
-                        gsap.to('.earRight', {
-                            x: dx <= 0 ? dx/3 : -dx/2,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                    //nariz
-                    gsap.to('.nose', {
-                        x: dx/1.5,
-                        y: dy/1.5,
-                        duration: 0.3,
-                        ease: "power2.out",
-                    })
-                    //olhos
-                        //óculos
-                        gsap.to('.glasses', {
-                            x: dx/3,
-                            y: dy/3,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //pálpebra sobrancelha esquerda
-                        gsap.to('.eyebrowLeft', {
-                            y: dy/2,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //pálpebra sobrancelha direita
-                        gsap.to('.eyebrowRight', {
-                            y: dy < 0 ? dy : dy/1.5,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //pálpebra superior
-                        gsap.to('.eyelidTop', {
-                            y: dy/2,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //pálpebra inferior
-                        gsap.to('.eyelidBottom', {
-                            y: dy/5,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //pupilas
-                        gsap.to('.pupil', {
-                            x: dx,
-                            y: dy,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //globo ocular
-                        gsap.to('.eyes', {
-                            x: dx/2,
-                            y: dy/2,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-
-                    //boca
-                        //dentes
-                        gsap.to('.teethTop, .teethBottom, .gum', {
-                            x: dx/4,
-                            y: dy/4,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                        //mandíbula
-                        gsap.to('.jaw, .mouth', {
-                            x: dx/2,
-                            y: dy/2,
-                            duration: 0.3,
-                            ease: "power2.out",
-                        })
-                    
-                    //cabeça
-                    gsap.to('.head', {
-                        x: dx/10,
-                        y: dy/10,
-                        duration: 0.5,
-                        ease: "power2.out",
-                    })
-                    
-                    //pescoço
-                    gsap.to('.neck', {
-                        rotate: dx/5,
-                        transformOrigin: '50% 90%',
-                        duration: 0.5,
-                        ease: "power2.out",
-                    })
-            })
-        }
-
-        window.addEventListener("mousemove", handleMouseMove)
-
-        return () => {
-            window.removeEventListener("mousemove", handleMouseMove)
-        }
-    }, [boxAvatarOver])
+        
+    }, [])
 
     const earLeft =  
         <g className='earLeft' id="earLeft" style={{filter: !earLeftTop || earLeftTop === null ? 'brightness(.9) contrast(1.3)' : ''}}>
@@ -279,7 +273,11 @@ export const Avatar = () => {
 
     return (
         <div className={styles.container}>
-            <div ref={boxAvatarRef} className={styles.boxMouseMove}></div>
+            <div 
+                ref={boxAvatarRef}
+                className={styles.boxMouseMove}
+                onMouseMove={handleMouseMove}
+            />
             <div className={styles.containerSVG}>
                 <svg
                     ref={avatarRef} 
@@ -321,7 +319,7 @@ export const Avatar = () => {
                                                 <circle id="pupil_2" cx="106" cy="148.695" r="15" fill="#593D2F" />
                                                 <circle id="iris" cx="106" cy="148.695" r="4" fill="#302A26" />
                                             </g>
-                                            <circle id="highlight" cx="94.5" cy="141.195" r="7.5" fill="white" />
+                                            <circle id="highlight" cx="94.5" cy="141.195" r="7.5" fill="#fefefeee" />
                                             <path className='eyelidBottom' id="eyelidBottom"
                                                 d="M143 164.857C138.572 160.429 73 160.857 69 164.857C69 164.857 69 196.929 104.5 196.929C143 196.929 143 164.857 143 164.857Z"
                                                 fill="#C79E70" />
@@ -341,7 +339,7 @@ export const Avatar = () => {
                                                 <circle id="pupil_4" cx="194" cy="148.695" r="15" fill="#593D2F" />
                                                 <circle id="iris_2" cx="194" cy="148.695" r="4" fill="#302A26" />
                                             </g>
-                                            <circle id="highlight_2" cx="182.5" cy="141.195" r="7.5" fill="white" />
+                                            <circle id="highlight_2" cx="182.5" cy="141.195" r="7.5" fill="#fefefeee" />
                                             <path className='eyelidBottom' id="eyelidBottom_2"
                                                 d="M231 164.857C226.572 160.429 161 160.857 157 164.857C157 164.857 157 196.929 192.5 196.929C231 196.929 231 164.857 231 164.857Z"
                                                 fill="#C79E70" />
@@ -354,7 +352,7 @@ export const Avatar = () => {
                                     <rect className='eyebrowRight' id="eyebrowRight" x="164" y="109.695" width="60" height="20" rx="9" fill="#25201D" />
                                 </g>
 
-                                <g id="glasses">
+                                <g id="glasses" style={{filter: 'drop-shadow(0px 5px 0px #9a473630)'}}>
                                     <g id="astes">
                                         <mask id="mask1_2_16" style={{maskType: "alpha"}} maskUnits="userSpaceOnUse" x="50" y="43" width="200" height="251">
                                             <rect id="cut_2" x="50" y="43.6948" width="200" height="250" rx="60" fill="#C79E70" />
@@ -373,7 +371,7 @@ export const Avatar = () => {
                                     <path className='hairRight' id="hairRight" d="M250.573 162.695V137.195C273.572 89.1948 251.073 39.1948 213.074 32.6948C213.074 32.6948 208.407 43.6948 213.074 51.6948C219.407 68.6948 234.973 103.795 246.573 108.195C243.373 118.195 244.573 148.695 245.573 162.695H250.573Z" fill="#25201D" />
                                     <path className='hairTop' id="hairTop" d="M234.499 41.1948L217.499 56.1948C99 105.195 27.4995 83.1948 27.4995 56.1948C27.4995 29.1948 74.4995 2.69479 132.999 0.194785C191.499 -2.30522 245.5 19.6948 234.499 41.1948Z" fill="#25201D" />
                                 </g>
-                                <rect className='nose' id="nose" x="120" y="141.695" width="60" height="95" rx="20" fill="#C78E70" />
+                                <rect className='nose' style={{filter: 'drop-shadow(0px 10px 0px #9a473630)'}} id="nose" x="120" y="141.695" width="60" height="95" rx="20" fill="#C78E70" />
 
                                 {getEarTop()}
 
