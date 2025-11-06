@@ -11,7 +11,32 @@
         width: 100%;
         aspect-ratio: 1/1;
         z-index: 0;
+        cursor: none;
+        z-index: 2;
+
+        &>.lookAt {
+            position: absolute;
+            display: flex;
+            gap: 10px;
+            transform: translate(-50%, -50%);
+            top: 40%;
+            left: 50%;
+            pointer-events: none;
+            opacity: 0;
+            
+            &>span {
+                display: flex;
+                width: 20px;
+                aspect-ratio: 1/1;
+                border: #aa444475 solid 2px;
+                border-radius: 50%;
+            }
+        }
+        &:hover>.lookAt {
+            opacity: 1;
+        }
     }
+
 
     &>.containerSVG {
         background-color: #0c0f14;
