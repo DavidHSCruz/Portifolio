@@ -39,7 +39,7 @@
 
 
     &>.containerSVG {
-        background-color: #0c0f14;
+        background: radial-gradient(circle,#0e1c20 30%,#080a0e 70%);
         display: flex;
         justify-content: center;
         align-items: center;
