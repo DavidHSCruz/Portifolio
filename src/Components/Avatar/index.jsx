@@ -9,15 +9,26 @@ export const Avatar = () => {
 
     const [lookAt, setLookAt] = useState({ x: null, y: null })
 
-    const defaultTl = useRef(null)
+    const enterTl = useRef(null)
+    const idleTl = useRef(null)
+    const surpriseTl = useRef(null)
 
     const blinkTl = useRef(null)
     const blinkActive = useRef(false)
     const blinkTimeout = useRef(null)
 
-    const surpriseTl = useRef(null)
 
     const [earLeftTop, setEarLeftTop] = useState(null)
+
+    function setLookAtPosition(x, y) {
+        const { left, top, width, height } = boxAvatarRef.current.getBoundingClientRect()
+        const posX = width * x
+        const posY = height * y
+
+        console.log(posX, posY)
+
+        setLookAt({ x: left + posX, y: top + posY })
+    }
 
     function singleBlinkAnimate() {
         blinkTl.current = gsap.timeline()
@@ -56,39 +67,51 @@ export const Avatar = () => {
     }
 
     function enterAnimate() {
-        defaultTl.current = gsap.timeline({ 
+        enterTl.current = gsap.timeline({ 
             defaults: { 
                 ease: "elastic.out(1, 1)",
                 duration: .3
         }})
 
         gsap.set(avatarRef.current, { y: 350 })
-        defaultTl.current.to(avatarRef.current, { y: 0, duration: 1, onComplete: () => {
+        enterTl.current.to(avatarRef.current, { y: 0, duration: 1, onComplete: () => {
             startBlinkAnimateLoop()
-            defaultAnimate()
+            idleAnimate()
         }}, '<+1')
         .to(avatarRef.current, { y: -1.5, duration: 2, yoyo: true, repeat: -1, ease: 'power2.inOut' })
         .to('.noseBreathe', { scaleX: 1.05, scaleY: .95, duration: 2, yoyo: true, repeat: -1, ease: 'power2.inOut' }, '<-.5')
     }
 
-    function defaultAnimate() {
-        defaultTl.current = gsap.timeline({ 
+    function idleAnimate() {
+        if(idleTl.current) idleTl.current.kill()
+        let transition = true
+
+        idleTl.current = gsap.timeline({ 
             defaults: { 
                 ease: "power2.inOut",
-                duration: .3
-        }})
+                duration: .2
+            },
+            repeat: transition ? 0 : -1,
+            onComplete: () => {
+                transition && idleAnimate()
+                transition = false
+            }
+        })
 
-        defaultTl.current.to('.neck', { rotation: 0, duration: .5 })
+        idleTl.current
+        .to('.neck', { rotation: 0, duration: .5 })
         .to('.neck', { y: 0, duration: .5 }, '-=.3')
-        .to('.head', { x: 0, y: 0, duration: .5, onStart: () => {
-            setLookAt({ x: 850, y: 315 })
+        .to('.head', { x: 0, y: 0, rotate: 0, duration: .5, onStart: () => {
+            setLookAtPosition(.1, .5)
         }}, '<')
-        .to('.eyebrowLeft, .eyebrowRight', { y: 15, duration: .2, onStart: stopBlinkAnimateLoop }, '<+1')
+        .to('.eyebrowLeft, .eyebrowRight', { y: 15, onStart: stopBlinkAnimateLoop }, '<+1')
+        .to('.pupil', { scaleX: .5, scaleY: .5 }, '<')
         .to('.eyelidTopBlink, .eyelidBottomBlink', { y: 0, duration: 0.1 }, '<')
         .to('.eyelidTop', { y: 10, duration: .1}, '<')
         .to('.eyelidBottom', { y: -10, duration: .1 }, '<')
-
+        
         .to('.nose', { scaleY: .9, duration: .5, ease: 'back.out(1.7)'})
+        .to('.jaw, .mouth', { x: 0 }, '<')
         .to('.jaw, .mouth', { y: -5, scaleX: .6, scaleY: .5, duration: .5, ease: 'back.out(1.7)' }, '<')
         .to('.teethBottom', { y: -25, x: 0, duration: .5, ease: 'back.out(1.7)' }, '<')
         .to('.tongue', { y: 0, x: 0, duration: .5, ease: 'back.out(1.7)' }, '<')
@@ -96,14 +119,53 @@ export const Avatar = () => {
         .to('.eyebrowLeft, .eyebrowRight', { y: 0, delay: 2, duration: .5 })
         .to('.eyelidTop, .eyelidBottom', { y: 0, duration: .5, onComplete: startBlinkAnimateLoop }, '<+1')
         .to('.pupil', { scaleX: 1, scaleY: 1, duration: .5 }, '<')
+        .to('.pupil', { delay: 1, onComplete: () => setLookAtPosition(.9, .3) })
+        .to('.mouth', { y: 40, x: -110, scaleX: .2, scaleY: .5, ease: 'back.out(1.7)' })
+        .to('.jaw', { y: 50, x: -100, scaleX: .4, scaleY: .7, ease: 'back.out(1.7)' }, '<+=.02')
+        .to('.teethBottom', { y: 15, ease: 'back.out(1.7)' }, '<')
+        .to('.tongue', { y: 10, x: -10, ease: 'back.out(1.7)' }, '<')
+        .to('.eyebrowLeft, .eyebrowRight', { y: -15 }, '<')
+
+        .to('.head', {
+            keyframes: [
+                { rotate: 2, x: -3, duration: .5, ease: 'back.out(1.4)' },
+                { rotate: 5, x: -6, duration: .5, ease: 'back.out(1.4)' },
+                { rotate: 2, x: -3, duration: .5, ease: 'back.out(1.4)' },
+                { rotate: 0, x: 0, duration: .2 }
+            ]
+        },'<')
+        .to('.mouth', {
+            keyframes: [
+                { y: 40, x: -110, scaleX: .22, scaleY: .55, duration: .5, ease: 'back.out(1.4)' },
+                { y: 35, x: -110, scaleX: .2, scaleY: .5, duration: .5, ease: 'back.out(1.4)' },
+                { y: 38, x: -113, scaleX: .22, scaleY: .55, duration: .2, ease: 'back.out(1.4)' },
+                { y: 32, x: -113, scaleX: .2, scaleY: .5, duration: .5, }
+            ]
+        },'<')
+        .to('.jaw', {
+            keyframes: [
+                { y: 50, x: -100, scaleX: .42, scaleY: .75, duration: .5, ease: 'back.out(1.4)' },
+                { y: 45, x: -100, scaleX: .4, scaleY: .7, duration: .5, ease: 'back.out(1.4)' },
+                { y: 48, x: -105, scaleX: .42, scaleY: .75, duration: .2, ease: 'back.out(1.4)' },
+                { y: 42, x: -105, scaleX: .4, scaleY: .7, duration: .5, ease: 'back.out(1.4)' },
+            ]
+         }, '<')
+         .to('.mouth, .jaw', { x: -50, scaleX: .1, scaleY: .5, duration: .5, ease: 'back.out(1.7)'})
+         .to('.mouth, .jaw', { y: 20, duration: 1 })
+         .to('.mouth', { x: 25, y: 50, scaleX: 1.3, scaleY: 1, ease: 'back.out(1.7)' })
+         .to('.jaw', { x: 25, y: 30, scaleX: 1.3, scaleY: 1.4, ease: 'back.out(1.7)' }, '<')
+         .to('.teethBottom', { y: 25, ease: 'back.out(1.7)' }, '<')
+         .to('.tongue', { y: 20, x: 0, ease: 'back.out(1.7)' }, '<')
+         .to('.head', { y: 10, ease: 'back.out(1.7)' }, '<')
+
     }
 
     function surpriseAnimate() {
         const { left, width } = boxAvatarRef.current.getBoundingClientRect()
         const boxAvatarCenterX = lookAt.x - left - width / 2
 
+        if(idleTl.current && idleTl.current.isActive()) idleTl.current.kill()
         if (surpriseTl.current) {
-            defaultTl.current.kill()
             surpriseTl.current.kill()
         }
 
@@ -136,8 +198,8 @@ export const Avatar = () => {
         .to('.mouth, .jaw', { scaleX: 1, scaleY: 1.6, x: 10, duration: .5, ease: 'elastic.out(1, .2)' }, '<')
         .to('.neck', { rotate: boxAvatarCenterX / 80, y: 15, duration: .05 }, '<')
         .to('.teethBottom, .tongue', { y: 27, x: 15, duration: .5, ease: 'elastic.out(2, .2)' }, '<')
-        .to('.head', { x: boxAvatarCenterX / 50, y: 10, duration: .5, ease: 'elastic.out(1, .2)' }, '<')
-        .to('.head', {onComplete: defaultAnimate}, '+=1')
+        .to('.head', { x: boxAvatarCenterX / 50, y: 10, rotate: 0, duration: .5, ease: 'elastic.out(1, .2)' }, '<')
+        .to('.head', {onComplete: idleAnimate}, '+=1')
     }
     
     function setPose() {
@@ -149,7 +211,7 @@ export const Avatar = () => {
             gsap.set(pupilPosition, { transformOrigin: '50% 50%', y: 0, x: 0, scaleX: 1, scaleY: 1 })
         })
 
-        gsap.set('.eyeRight, .eyeLeft, .pupil', { transformOrigin: '50% 50%' })
+        gsap.set('.eyeRight, .eyeLeft, .pupil, .head', { transformOrigin: '50% 50%' })
         gsap.set('.jaw, .mouth', { transformOrigin: '100% 0%', y: 0., x: 0, scaleX: .5, scaleY: .5 })
         gsap.set('.jawPosition, .mouthPosition', { transformOrigin: '100% 0%', y: 0., x: 0 })
         gsap.set('.neck, .neckRotate, .body', { transformOrigin: '50% 90%', rotate: 0 })
@@ -242,6 +304,7 @@ export const Avatar = () => {
             //olhos
             
             gsap.to('.eyelidBottom', { y: 0, duration: .5}) //pálpebra inferior aberta
+            gsap.to('.pupil', { scaleX: 1, scaleY: 1, duration: .5 }) //pupila normal
 
                 //óculos
                 gsap.to('.glassesPosition', { x: dx/2, y: dy/2 })
@@ -293,6 +356,8 @@ export const Avatar = () => {
         const { clientX, clientY } = e
         const { left, top } = boxAvatarRef.current.getBoundingClientRect()
 
+        idleTl.current.pause()
+
         lookAtRef.current.style.left = `${clientX - left}px`
         lookAtRef.current.style.top = `${clientY - top}px`
         
@@ -306,7 +371,7 @@ export const Avatar = () => {
     const earFront = (isFront) => (
         <>
             <g className='earLeftPosition'>
-                <g className='earLeft' id="earLeft" style={{filter: !earLeftTop || earLeftTop === null ? 'brightness(.95) contrast(1.2) saturate(1.15)' : '', opacity: isFront ? getEarTop('left') ? 1 : 0 : !getEarTop('left') ? 1 : 0}}>
+                <g className='earLeft' id="earLeft" style={{filter: !earLeftTop || earLeftTop === null ? 'brightness(.95) contrast(1.2)' : '', opacity: isFront ? getEarTop('left') ? 1 : 0 : !getEarTop('left') ? 1 : 0}}>
                     <mask id="mask0_2_99" style={{maskType: 'alpha'}} maskUnits="userSpaceOnUse" x="26" y="136" width="24"
                         height="61">
                         <rect id="cut" x="26" y="136.695" width="24" height="60" fill="#000" />
@@ -325,7 +390,7 @@ export const Avatar = () => {
                 </g>
             </g>
             <g className='earRightPosition'>
-                <g className='earRight' id="earRight" style={{filter: earLeftTop || earLeftTop === null ? 'brightness(.95) contrast(1.2) saturate(1.15)' : '', opacity: isFront ? !getEarTop('right') ? 1: 0 : getEarTop('right') ? 1 : 0}}>
+                <g className='earRight' id="earRight" style={{filter: earLeftTop || earLeftTop === null ? 'brightness(.95) contrast(1.2)' : '', opacity: isFront ? !getEarTop('right') ? 1: 0 : getEarTop('right') ? 1 : 0}}>
                     <mask id="mask1_2_98" style={{maskType: 'alpha'}} maskUnits="userSpaceOnUse" x="250" y="136" width="24"
                         height="61">
                         <rect id="cut_2" x="250" y="136.695" width="24" height="60" fill="#000" />
@@ -373,7 +438,7 @@ export const Avatar = () => {
             <div className={styles.containerSVG}>
                 <svg
                     ref={avatarRef} 
-                    width='300' height='400'
+                    width='400' height='500'
                     viewBox='0 0 500 600'
                     fill="none" xmlns="http://www.w3.org/2000/svg">
 
