@@ -356,7 +356,9 @@ export const Avatar = () => {
         const { clientX, clientY } = e
         const { left, top } = boxAvatarRef.current.getBoundingClientRect()
 
-        idleTl.current.pause()
+        if(idleTl.current) {
+            idleTl.current.pause()
+        }
 
         lookAtRef.current.style.left = `${clientX - left}px`
         lookAtRef.current.style.top = `${clientY - top}px`

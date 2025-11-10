@@ -22,7 +22,9 @@ export default function Banner() {
                 </div>
             </div>
             <div className={styles.inicio_direita}>
-                <Avatar />
+                <div>
+                    <Avatar />
+                </div>
             </div>
         </section>
     )
