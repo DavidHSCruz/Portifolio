@@ -5,14 +5,16 @@ import styles from './Logo.module.css'
 export const Logo = () => {
     const ran = useRef(false)
 
-    const root = document.documentElement
-    const corVerde = getComputedStyle(root).getPropertyValue("--cor-verde").trim()
-    const cor1 = getComputedStyle(root).getPropertyValue("--cor-1").trim()
-
-    const widthWindow = window.innerWidth
-    const tl = gsap.timeline({ defaults: { ease: "power2.inOut", duration: .4 } })
-
+    
+    
     useEffect(() => {
+        const root = document.documentElement
+        const corVerde = getComputedStyle(root).getPropertyValue("--cor-verde").trim()
+        const cor1 = getComputedStyle(root).getPropertyValue("--cor-1").trim()
+        
+        const widthWindow = window.innerWidth
+        const tl = gsap.timeline({ defaults: { ease: "power2.inOut", duration: .4 } })
+        
         if(ran.current) return
         ran.current = true
 

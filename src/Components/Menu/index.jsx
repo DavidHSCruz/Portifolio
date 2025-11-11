@@ -21,9 +21,10 @@ export default function Menu() {
 
     const ran = useRef(false)
 
-    const tl = gsap.timeline({ defaults: { ease: "power1.inOut", duration: 1, delay: 1 } })
     
     useEffect(() => {
+        const tl = gsap.timeline({ defaults: { ease: "power1.inOut", duration: 1, delay: 1 } })
+        
         if(ran.current) return
         ran.current = true
 
