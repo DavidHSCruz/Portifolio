@@ -239,7 +239,6 @@ export const Avatar = () => {
 
                 // Raio máximo do movimento (limite circular)
                 const radius = width / 2 - pupilPosition.clientWidth / 2
-                const distance = Math.sqrt(dx * dx + dy * dy)
                 
                 // Divide o movimento (estilo "seguindo suavemente")
                 dx /= 20
@@ -350,6 +349,7 @@ export const Avatar = () => {
         //olhar
         eyesMouseAnimate(lookAt.x, lookAt.y)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lookAt])
 
     function handleMouseMove(e) {

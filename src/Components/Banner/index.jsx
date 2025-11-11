@@ -1,6 +1,5 @@
 import { Avatar } from 'Components/Avatar'
 import styles from './Banner.module.css'
-import fotoPerfil from 'Imagens/fotoPerfil/eu.jpg'
 import { IoLogoCss3, IoLogoHtml5, IoLogoJavascript, IoLogoNodejs } from "react-icons/io"
 import { IoLogoReact } from "react-icons/io5"
 
