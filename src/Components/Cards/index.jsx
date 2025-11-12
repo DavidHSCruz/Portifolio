@@ -12,6 +12,7 @@ export default function Cards({ title, data }) {
                         title={data.titulo}
                         descricao={data.descricao}
                         img={data.img}
+                        tags={data.tags}
                         to={data.to}
                     />
                 )}

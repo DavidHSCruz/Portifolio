@@ -23,6 +23,9 @@ export default function Menu() {
 
     
     useEffect(() => {
+        const isTelaDark = JSON.parse(localStorage.getItem('tema__noturno'))
+        if(isTelaDark) document.documentElement.classList.add('dark')
+
         const tl = gsap.timeline({ defaults: { ease: "power1.inOut", duration: 1, delay: 1 } })
         
         if(ran.current) return
@@ -32,45 +35,11 @@ export default function Menu() {
             { y: -50, opacity: 0 },
             { y: 0, opacity: 1, stagger: .2 })
     }, [])
-    
-    useEffect(() => {
-        const tema = document.documentElement.style
-
-        function testarTema() {
-            if (noturno === false) {
-                temaSite(noturno)
-            }else if (noturno === true) {
-                temaSite(noturno)
-            }else {
-                setNoturno(false)
-                localStorage.setItem('tema__noturno', false)
-                temaSite(noturno)
-            }
-        }
-
-        function temaSite(temaSite) {
-            if (!temaSite) {
-                tema.setProperty('--cor-1', '#202734')
-                tema.setProperty('--cor-2', '#f4f4f4')
-            }else {
-                tema.setProperty('--cor-1', '#f4f4f4')
-                tema.setProperty('--cor-2', '#202734')
-            }
-        }
-    
-        testarTema()
-    },[noturno])
 
     function mudarTema() {
-            
-        if (noturno){
-            localStorage.setItem('tema__noturno', false)
-            setNoturno(false)
-        }else if (!noturno) {
-            localStorage.setItem('tema__noturno', true)
-            setNoturno(true)
-        }
-        
+        localStorage.setItem('tema__noturno', !noturno)
+        setNoturno(!noturno)
+        document.documentElement.classList.toggle('dark')
     }
 
     return(

@@ -6,18 +6,21 @@ const PrincipaisProjetos = () => {
             titulo: 'TIC TAC TOE',
             descricao: "Clássico jogo de estratégia com duas opções emocionantes de jogo para você se divertir e desafiar suas habilidades! Prepare-se para marcar seus X's e O's em duas modalidades distintas: o Jogo Normal e o Jogo Avançado.",
             img: '/imagens/Projetos/TicTacToe.png',
+            tags: ['HTML', 'CSS', 'JavaScript'],
             to: 'https://davidhscruz.github.io/TIC-TAC-TOE/'
         },
         {
             titulo: 'CASA VERDE',
             descricao: "Uma plataforma de e-commerce dedicada à venda de plantas e acessórios de jardinagem.",
             img: '/imagens/Projetos/CasaVerde.png',
+            tags: ['HTML', 'CSS', 'JavaScript'],
             to: 'https://casa-verde-dqnbzesb6-davidhscruzs-projects.vercel.app/'
         },
         {
             titulo: 'ALURA BOOKS',
             descricao: "Uma plataforma de e-commerce dedicada à venda e distribuição de livros digitais de TI.",
             img: '/imagens/Projetos/AluraBooks.png',
+            tags: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js'],
             to: 'https://alurabooks-tau-ten.vercel.app/'
         },
     ]

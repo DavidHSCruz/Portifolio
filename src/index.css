@@ -1,11 +1,101 @@
 @import url('https://fonts.googleapis.com/css2?family=Belanosima&display=swap');
 
 :root {
-  --cor-1: #202734;
-  --cor-2: #f4f4f4;
-  --cor-azul: #0077cc;
-  --cor-verde: #059669;
+  /* 🎨 Cores principais */
+  --cor-1: #202734;      /* Fundo escuro principal */
+  --cor-2: #f4f4f4;      /* Fundo/texto claro */
+  --cor-azul: #0077cc;   /* Ação/destaque */
+  --cor-verde: #059669;  /* Sucesso/confirmação */
+
+  /* 🌗 Variações da cor 1 */
+  --cor-1-escura: #161b24; /* Fundo mais escuro */
+  --cor-1-clara: #2b3445;  /* Fundo ligeiramente mais claro */
+  --cor-1-transparente: rgba(32, 39, 52, 0.8); /* Fundo translúcido */
+
+  /* ☀️ Variações da cor 2 */
+  --cor-2-escura: #e0e0e0; /* Tom de cinza claro */
+  --cor-2-clara: #ffffff;  /* Branco puro */
+  --cor-2-transparente: rgba(244, 244, 244, 0.8); /* Translúcido */
+
+  /* 🟦 Azul */
+  --cor-azul-escura: #005fa3;
+  --cor-azul-hover: #0090ff;
+  --cor-azul-clara: #cce7ff;
+
+  /* 🟩 Verde */
+  --cor-verde-escura: #047857;
+  --cor-verde-hover: #06b981;
+  --cor-verde-clara: #d1fae5;
+
+  /* 🟥 Estados */
+  --cor-erro: #dc2626;
+  --cor-erro-hover: #ef4444;
+  --cor-aviso: #f59e0b;
+  --cor-aviso-hover: #fbbf24;
+
+  /* Bordas e sombras */
+  --borda-clara: rgba(255, 255, 255, 0.1);
+  --borda-escura: rgba(0, 0, 0, 0.15);
+  --borda-destaque: var(--cor-azul);
+  --sombra-leve: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --sombra-media: 0 4px 8px rgba(0, 0, 0, 0.18);
+  --sombra-intensa: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+  /* Gradientes */
+  --gradiente-azul: linear-gradient(135deg, #0077cc, #0090ff);
+  --gradiente-verde: linear-gradient(135deg, #059669, #06b981);
+  --gradiente-cor-1: linear-gradient(180deg, #161b24, #202734);
+  --gradiente-cor-2: linear-gradient(180deg, #ffffff, #f4f4f4);
 }
+
+:root.dark {
+  /* 🎨 Cores principais */
+  --cor-1: #f4f4f4;      /* Fundo escuro principal */
+  --cor-2: #202734;      /* Fundo/texto claro */
+  --cor-azul: #0077cc;   /* Ação/destaque */
+  --cor-verde: #059669;  /* Sucesso/confirmação */
+
+  /* 🌗 Variações da cor 1 */
+  --cor-1-escura: #e0e0e0; /* Fundo mais escuro */
+  --cor-1-clara: #ffffff;  /* Fundo ligeiramente mais claro */
+  --cor-1-transparente: rgba(244, 244, 244, 0.8); /* Fundo translúcido */
+
+  /* ☀️ Variações da cor 2 */
+  --cor-2-escura: ##161b24; /* Tom de cinza claro */
+  --cor-2-clara: #2b3445;  /* Branco puro */
+  --cor-2-transparente: rgba(32, 39, 52, 0.8); /* Translúcido */
+
+  /* 🟦 Azul */
+  --cor-azul-escura: #005fa3;
+  --cor-azul-hover: #0090ff;
+  --cor-azul-clara: #cce7ff;
+
+  /* 🟩 Verde */
+  --cor-verde-escura: #047857;
+  --cor-verde-hover: #06b981;
+  --cor-verde-clara: #d1fae5;
+
+  /* 🟥 Estados */
+  --cor-erro: #dc2626;
+  --cor-erro-hover: #ef4444;
+  --cor-aviso: #f59e0b;
+  --cor-aviso-hover: #fbbf24;
+
+  /* Bordas e sombras */
+  --borda-clara: rgba(255, 255, 255, 0.1);
+  --borda-escura: rgba(0, 0, 0, 0.15);
+  --borda-destaque: var(--cor-azul);
+  --sombra-leve: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --sombra-media: 0 4px 8px rgba(0, 0, 0, 0.18);
+  --sombra-intensa: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+  /* Gradientes */
+  --gradiente-azul: linear-gradient(135deg, #0077cc, #0090ff);
+  --gradiente-verde: linear-gradient(135deg, #059669, #06b981);
+  --gradiente-cor-1: linear-gradient(180deg, #161b24, #202734);
+  --gradiente-cor-2: linear-gradient(180deg, #ffffff, #f4f4f4);
+}
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
