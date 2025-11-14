@@ -1,8 +1,11 @@
 import gsap from 'gsap'
-import React, { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import styles from './Avatar.module.css'
+import { enterAnimate, surpriseAnimate } from './Animations'
+import { useGSAP } from '@gsap/react'
 
 export const Avatar = () => {
+    const containerRef = useRef(null)
     const avatarRef = useRef(null)
     const boxAvatarRef = useRef(null)
     const lookAtRef = useRef(null)
@@ -17,10 +20,11 @@ export const Avatar = () => {
     const blinkActive = useRef(false)
     const blinkTimeout = useRef(null)
 
-
     const [earLeftTop, setEarLeftTop] = useState(null)
 
     function setLookAtPosition(x, y) {
+        if (!boxAvatarRef.current) return
+        
         const { left, top, width, height } = boxAvatarRef.current.getBoundingClientRect()
         const posX = width * x
         const posY = height * y
@@ -29,198 +33,10 @@ export const Avatar = () => {
 
         setLookAt({ x: left + posX, y: top + posY })
     }
-
-    function singleBlinkAnimate() {
-        blinkTl.current = gsap.timeline()
-
-        blinkTl.current.to(".eyelidTopBlink", { y: 15, duration: 0.1, ease: "power1.in" })
-        .to(".eyelidBottomBlink", { y: -15, duration: 0.1, ease: "power1.in" }, 0)
-        .to(".eyelidTopBlink", { y: 0, duration: 0.15, ease: "power1.out" }, "+=0.1")
-        .to(".eyelidBottomBlink", { y: 0, duration: 0.15, ease: "power1.out" }, "<")
-
-        return blinkTl.current
-    }
-
-    function startBlinkAnimateLoop() {
-        blinkActive.current = true // ativa o loop
-
-        function loop() {
-        if (!blinkActive.current) return // para ser desativado
-
-        const delay = gsap.utils.random(2, 10, 0.1, true)
-        const doubleBlinkChance = Math.random() < 0.10
-
-        singleBlinkAnimate()
-
-        if (doubleBlinkChance) gsap.delayedCall(0.3, singleBlinkAnimate)
-
-        blinkTimeout.current = gsap.delayedCall(delay, loop)
-        }
-
-        loop()
-    }
-
-    function stopBlinkAnimateLoop() {
-        blinkActive.current = false // desliga o loop
-        if (blinkTimeout.current) blinkTimeout.current.kill() // cancela delayedCall pendente
-        if (blinkTl.current) blinkTl.current.kill() // mata timeline ativa
-    }
-
-    function enterAnimate() {
-        enterTl.current = gsap.timeline({ 
-            defaults: { 
-                ease: "elastic.out(1, 1)",
-                duration: .3
-        }})
-
-        gsap.set(avatarRef.current, { y: 350 })
-        enterTl.current.to(avatarRef.current, { y: 0, duration: 1, onComplete: () => {
-            startBlinkAnimateLoop()
-            idleAnimate()
-        }}, '<+1')
-        .to(avatarRef.current, { y: -1.5, duration: 2, yoyo: true, repeat: -1, ease: 'power2.inOut' })
-        .to('.noseBreathe', { scaleX: 1.05, scaleY: .95, duration: 2, yoyo: true, repeat: -1, ease: 'power2.inOut' }, '<-.5')
-    }
-
-    function idleAnimate() {
-        if(idleTl.current) idleTl.current.kill()
-        let transition = true
-
-        idleTl.current = gsap.timeline({ 
-            defaults: { 
-                ease: "power2.inOut",
-                duration: .2
-            },
-            repeat: transition ? 0 : -1,
-            onComplete: () => {
-                transition && idleAnimate()
-                transition = false
-            }
-        })
-
-        idleTl.current
-        .to('.neck', { rotation: 0, duration: .5 })
-        .to('.neck', { y: 0, duration: .5 }, '-=.3')
-        .to('.head', { x: 0, y: 0, rotate: 0, duration: .5, onStart: () => {
-            setLookAtPosition(.1, .5)
-        }}, '<')
-        .to('.eyebrowLeft, .eyebrowRight', { y: 15, onStart: stopBlinkAnimateLoop }, '<+1')
-        .to('.pupil', { scaleX: .5, scaleY: .5 }, '<')
-        .to('.eyelidTopBlink, .eyelidBottomBlink', { y: 0, duration: 0.1 }, '<')
-        .to('.eyelidTop', { y: 10, duration: .1}, '<')
-        .to('.eyelidBottom', { y: -10, duration: .1 }, '<')
-        
-        .to('.nose', { scaleY: .9, duration: .5, ease: 'back.out(1.7)'})
-        .to('.jaw, .mouth', { x: 0 }, '<')
-        .to('.jaw, .mouth', { y: -5, scaleX: .6, scaleY: .5, duration: .5, ease: 'back.out(1.7)' }, '<')
-        .to('.teethBottom', { y: -25, x: 0, duration: .5, ease: 'back.out(1.7)' }, '<')
-        .to('.tongue', { y: 0, x: 0, duration: .5, ease: 'back.out(1.7)' }, '<')
-
-        .to('.eyebrowLeft, .eyebrowRight', { y: 0, delay: 2, duration: .5 })
-        .to('.eyelidTop, .eyelidBottom', { y: 0, duration: .5, onComplete: startBlinkAnimateLoop }, '<+1')
-        .to('.pupil', { scaleX: 1, scaleY: 1, duration: .5 }, '<')
-        .to('.pupil', { delay: 1, onComplete: () => setLookAtPosition(.9, .3) })
-        .to('.mouth', { y: 40, x: -110, scaleX: .2, scaleY: .5, ease: 'back.out(1.7)' })
-        .to('.jaw', { y: 50, x: -100, scaleX: .4, scaleY: .7, ease: 'back.out(1.7)' }, '<+=.02')
-        .to('.teethBottom', { y: 15, ease: 'back.out(1.7)' }, '<')
-        .to('.tongue', { y: 10, x: -10, ease: 'back.out(1.7)' }, '<')
-        .to('.eyebrowLeft, .eyebrowRight', { y: -15 }, '<')
-
-        .to('.head', {
-            keyframes: [
-                { rotate: 2, x: -3, duration: .5, ease: 'back.out(1.4)' },
-                { rotate: 5, x: -6, duration: .5, ease: 'back.out(1.4)' },
-                { rotate: 2, x: -3, duration: .5, ease: 'back.out(1.4)' },
-                { rotate: 0, x: 0, duration: .2 }
-            ]
-        },'<')
-        .to('.mouth', {
-            keyframes: [
-                { y: 40, x: -110, scaleX: .22, scaleY: .55, duration: .5, ease: 'back.out(1.4)' },
-                { y: 35, x: -110, scaleX: .2, scaleY: .5, duration: .5, ease: 'back.out(1.4)' },
-                { y: 38, x: -113, scaleX: .22, scaleY: .55, duration: .2, ease: 'back.out(1.4)' },
-                { y: 32, x: -113, scaleX: .2, scaleY: .5, duration: .5, }
-            ]
-        },'<')
-        .to('.jaw', {
-            keyframes: [
-                { y: 50, x: -100, scaleX: .42, scaleY: .75, duration: .5, ease: 'back.out(1.4)' },
-                { y: 45, x: -100, scaleX: .4, scaleY: .7, duration: .5, ease: 'back.out(1.4)' },
-                { y: 48, x: -105, scaleX: .42, scaleY: .75, duration: .2, ease: 'back.out(1.4)' },
-                { y: 42, x: -105, scaleX: .4, scaleY: .7, duration: .5, ease: 'back.out(1.4)' },
-            ]
-         }, '<')
-         .to('.mouth, .jaw', { x: -50, scaleX: .1, scaleY: .5, duration: .5, ease: 'back.out(1.7)'})
-         .to('.mouth, .jaw', { y: 20, duration: 1 })
-         .to('.mouth', { x: 25, y: 50, scaleX: 1.3, scaleY: 1, ease: 'back.out(1.7)' })
-         .to('.jaw', { x: 25, y: 30, scaleX: 1.3, scaleY: 1.4, ease: 'back.out(1.7)' }, '<')
-         .to('.teethBottom', { y: 25, ease: 'back.out(1.7)' }, '<')
-         .to('.tongue', { y: 20, x: 0, ease: 'back.out(1.7)' }, '<')
-         .to('.head', { y: 10, ease: 'back.out(1.7)' }, '<')
-
-    }
-
-    function surpriseAnimate() {
-        const { left, width } = boxAvatarRef.current.getBoundingClientRect()
-        const boxAvatarCenterX = lookAt.x - left - width / 2
-
-        if(idleTl.current && idleTl.current.isActive()) idleTl.current.kill()
-        if (surpriseTl.current) {
-            surpriseTl.current.kill()
-        }
-
-        setPose()
-
-        surpriseTl.current = gsap.timeline({ 
-            defaults: { 
-                ease: "power2.inOut",
-                duration: .3
-            },
-        })
-
-        surpriseTl.current.to('.eyeRight, .eyeLeft', { scaleX: 1.3, scaleY: 1.3, duration: .05, onStart: stopBlinkAnimateLoop })
-        .to('.eyelidTopBlink, .eyelidBottomBlink', { y: 0, duration: 0.1 }, '<')
-        .to('.pupil', { scaleX: .5, scaleY: .5, duration: .5, ease: 'elastic.out(1, .2)' }, '<')
-        .to('.eyebrowLeft, .eyebrowRight', { y: -10, duration: .05 }, '<')
-        .to('.eyelidTop', { y: -10, duration: .05 }, '<')
-        .to('.eyeRight .eyelidBottom', {
-            keyframes: [
-                { y: -1, duration: .06 },
-                { y: 1, duration: .05 },
-                { y: -1, duration: .06 },
-                { y: 1, duration: .05 },
-            ],
-            repeat: 1,
-            repeatDelay: 1 
-        }, '<')
-        .to('.eyeLeft .eyelidBottom', { y: 5, duration: .02 }, '<')
-        .to('.nose', { scaleY: 1, duration: .2 }, '<')
-        .to('.mouth, .jaw', { scaleX: 1, scaleY: 1.6, x: 10, duration: .5, ease: 'elastic.out(1, .2)' }, '<')
-        .to('.neck', { rotate: boxAvatarCenterX / 80, y: 15, duration: .05 }, '<')
-        .to('.teethBottom, .tongue', { y: 27, x: 15, duration: .5, ease: 'elastic.out(2, .2)' }, '<')
-        .to('.head', { x: boxAvatarCenterX / 50, y: 10, rotate: 0, duration: .5, ease: 'elastic.out(1, .2)' }, '<')
-        .to('.head', {onComplete: idleAnimate}, '+=1')
-    }
     
-    function setPose() {
-        const q = gsap.utils.selector(avatarRef)
-        const eyes = q('.eyePosition')
+    gsap.registerPlugin(useGSAP)
 
-        eyes.forEach(eye => {
-            const pupilPosition = eye.nextElementSibling
-            gsap.set(pupilPosition, { transformOrigin: '50% 50%', y: 0, x: 0, scaleX: 1, scaleY: 1 })
-        })
-
-        gsap.set('.eyeRight, .eyeLeft, .pupil, .head', { transformOrigin: '50% 50%' })
-        gsap.set('.jaw, .mouth', { transformOrigin: '100% 0%', y: 0., x: 0, scaleX: .5, scaleY: .5 })
-        gsap.set('.jawPosition, .mouthPosition', { transformOrigin: '100% 0%', y: 0., x: 0 })
-        gsap.set('.neck, .neckRotate, .body', { transformOrigin: '50% 90%', rotate: 0 })
-        gsap.set('.hairLeft, .hairLeftPosition', { transformOrigin: "left" })
-        gsap.set('.hairRight, .hairRightPosition', { transformOrigin: "right" })
-        gsap.set('.nose, .nosePosition', { transformOrigin: "50% 0%" })
-    }
-
-    useEffect(() => {
+    useGSAP(() => {
         const q = gsap.utils.selector(avatarRef)
         const eyes = q('.eyePosition')
 
@@ -264,8 +80,8 @@ export const Avatar = () => {
             const centerX = left + width / 2
             const centerY = top + height / 2 - 60
             
-            const dx= (clientX - centerX) / 20
-            const dy= (clientY - centerY) / 20
+            const dx= (clientX - centerX) / 16
+            const dy= (clientY - centerY) / 16
 
             //orelha que fica à frente dependendo da posição da cabeça
             if(dx < -7) setEarLeftTop(false)
@@ -298,7 +114,7 @@ export const Avatar = () => {
                 gsap.to('.earRightPosition', { x: dx <= 0 ? dx/3 : -dx/1.5 })
 
             //nariz
-            gsap.to('.nosePosition', { x: dx/1.2, y: dy/1.2 })
+            gsap.to('.nosePosition', { x: dx, y: dy })
 
             //olhos
             
@@ -306,7 +122,7 @@ export const Avatar = () => {
             gsap.to('.pupil', { scaleX: 1, scaleY: 1, duration: .5 }) //pupila normal
 
                 //óculos
-                gsap.to('.glassesPosition', { x: dx/2, y: dy/2 })
+                gsap.to('.glassesPosition', { x: dx/1.2, y: dy/1.2 })
                 //sobrancelha esquerda
                 gsap.to('.eyebrowLeftPosition', { y: dy/2 })
                 //sobrancelha direita
@@ -340,8 +156,7 @@ export const Avatar = () => {
         }
 
         if(lookAt.x === null || lookAt.y === null) {
-            setPose()
-            enterAnimate()
+            enterAnimate(enterTl, avatarRef, idleTl, setLookAtPosition, blinkTl, blinkActive, blinkTimeout)
             return
         }
         //cabeça
@@ -349,7 +164,6 @@ export const Avatar = () => {
         //olhar
         eyesMouseAnimate(lookAt.x, lookAt.y)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lookAt])
 
     function handleMouseMove(e) {
@@ -367,7 +181,7 @@ export const Avatar = () => {
     }
 
     function handleMouseLeave() {
-        surpriseAnimate()
+        surpriseAnimate(boxAvatarRef, surpriseTl, idleTl, setLookAtPosition, blinkTl, blinkActive, blinkTimeout, lookAt)
     }
 
     const earFront = (isFront) => (
@@ -425,7 +239,7 @@ export const Avatar = () => {
     }
 
     return (
-        <div className={styles.container}>
+        <div ref={containerRef} className={styles.container}>
             <div 
                 ref={boxAvatarRef}
                 className={styles.boxMouseMove}
@@ -515,14 +329,14 @@ export const Avatar = () => {
                                                             <g className='eyelidBottomPosition'>
                                                                 <g className='eyelidBottomBlink'>
                                                                     <path className='eyelidBottom' id="eyelidBottom"
-                                                                        d="M143 164.857C138.572 160.429 73 160.857 69 164.857C69 164.857 69 196.929 104.5 196.929C143 196.929 143 164.857 143 164.857Z"
+                                                                        d="M143 164.857C138.572 160.429 73 160.857 69 164.857C69 164.857 69 228.695 104.5 228.695C143 228.695 143 164.857 143 164.857Z"
                                                                         fill="url(#paint_skin)" />
                                                                 </g>
                                                             </g>
                                                             <g className='eyelidTopPosition'>
                                                                 <g className='eyelidTopBlink'>
                                                                     <path className='eyelidTop' id="eyelidTop"
-                                                                        d="M69 131.767C73.4282 136.195 139 135.766 143 131.767C143 131.767 143 99.6948 107.5 99.6948C69 99.6948 69 131.767 69 131.767Z"
+                                                                        d="M69 131.767C73.4282 136.195 139 135.766 143 131.767C143 131.767 143 58.6948 107.5 58.6948C69 58.6948 69 131.767 69 131.767Z"
                                                                         fill="url(#paint_skin)" />
                                                                 </g>
                                                             </g>
@@ -552,14 +366,14 @@ export const Avatar = () => {
                                                             <g className='eyelidBottomPosition'>
                                                                 <g className='eyelidBottomBlink'>
                                                                     <path className='eyelidBottom' id="eyelidBottom_2"
-                                                                        d="M231 164.857C226.572 160.429 161 160.857 157 164.857C157 164.857 157 196.929 192.5 196.929C231 196.929 231 164.857 231 164.857Z"
+                                                                        d="M231 164.857C226.572 160.429 161 160.857 157 164.857C157 164.857 157 228.695 192.5 228.695C231 228.695 231 164.857 231 164.857Z"
                                                                         fill="url(#paint_skin)" />
                                                                 </g>
                                                             </g>
                                                             <g className='eyelidTopPosition'>
                                                                 <g className='eyelidTopBlink'>
                                                                     <path className='eyelidTop' id="eyelidTop_2"
-                                                                        d="M157 131.767C161.428 136.195 227 135.766 231 131.767C231 131.767 231 99.6948 195.5 99.6948C157 99.6948 157 131.767 157 131.767Z"
+                                                                        d="M157 131.767C161.428 136.195 227 135.766 231 131.767C231 131.767 231 58.6948 195.5 58.6948C157 58.6948 157 131.767 157 131.767Z"
                                                                         fill="url(#paint_skin)" />
                                                                 </g>
                                                             </g>
