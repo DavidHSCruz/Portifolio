@@ -17,10 +17,3 @@
     justify-content: space-around;
     gap: 1em;
 }
-
-@media(max-width:768px) {
-    .cards_component {
-        flex-direction: column;
-        align-items: center;
-    }
-}
