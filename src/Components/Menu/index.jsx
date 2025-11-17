@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import styles from './Menu.module.css'
 import { FaLinkedin, FaGithub } from "react-icons/fa"
 import { BiAdjust } from "react-icons/bi"
@@ -25,15 +24,11 @@ export default function Menu() {
     useEffect(() => {
         const isTelaDark = JSON.parse(localStorage.getItem('tema__noturno'))
         if(isTelaDark) document.documentElement.classList.add('dark')
-
-        const tl = gsap.timeline({ defaults: { ease: "power1.inOut", duration: 1, delay: 1 } })
-        
+            
         if(ran.current) return
         ran.current = true
 
-        tl.fromTo(`.${styles.navegacao}>ul>li`,
-            { y: -50, opacity: 0 },
-            { y: 0, opacity: 1, stagger: .2 })
+        gsap.to(`.${styles.navegacao}>ul li`, { y: 0, opacity: 1, stagger: .2, delay: 1 })
     }, [])
 
     function mudarTema() {
@@ -67,22 +62,24 @@ export default function Menu() {
             
                         <ul className={styles.redes_sociais}>
                             <li>
-                                <Link 
-                                    to='https://github.com/DavidHSCruz'
+                                <a 
+                                    href='https://github.com/DavidHSCruz'
                                     target='_blank'
+                                    rel='noopener noreferrer'
                                     area-label='Abrir perfil do github'
                                 >
                                     <FaGithub name="logo-github"/>
-                                </Link>
+                                </a>
                             </li>
                             <li>
-                                <Link 
-                                    to='https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/'
+                                <a 
+                                    href='https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/'
                                     target='_blank'
+                                    rel='noopener noreferrer'
                                     area-label='Abrir perfil do linkedin'
                                 >
                                     <FaLinkedin name="logo-linkedin"/>
-                                </Link>
+                                </a>
                             </li>
                         </ul>
             

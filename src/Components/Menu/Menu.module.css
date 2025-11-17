@@ -20,8 +20,11 @@ header.menu {
 
     .navegacao>ul {
         &>li {
-            margin: 1em;
+            padding: 1em;
+        }
+        & li {
             align-content: center;
+            transform: translateY(-50px);
             transition: 500ms;
             &:hover {
                 color: var(--cor-verde);

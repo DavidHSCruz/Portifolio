@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import styles from './MenuMobile.module.css'
 import { FaLinkedin, FaGithub } from "react-icons/fa"
 import { BiAdjust } from "react-icons/bi"
@@ -64,14 +63,24 @@ export default function Menu() {
             
                         <ul className={styles.redes_sociais}>
                             <li>
-                                <Link to='https://github.com/DavidHSCruz' target='_blank'>
+                                <a 
+                                    href='https://github.com/DavidHSCruz' 
+                                    target='_blank' 
+                                    rel='noopener noreferrer'
+                                    area-label='Abrir perfil do linkedin'
+                                >
                                     <FaGithub name="logo-github"/>
-                                </Link>
+                                </a>
                             </li>
                             <li>
-                                <Link to='https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/' target='_blank'>
+                                <a 
+                                    href='https://www.linkedin.com/in/david-henrique-silva-cruz-4a0762188/' 
+                                    target='_blank' 
+                                    rel='noopener noreferrer'
+                                    area-label='Abrir perfil do linkedin'
+                                >
                                     <FaLinkedin name="logo-linkedin"/>
-                                </Link>
+                                </a>
                             </li>
                         </ul>
                         <button 
