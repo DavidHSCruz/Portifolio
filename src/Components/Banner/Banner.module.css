@@ -104,6 +104,7 @@ section.bannerContainer {
         width: 0%;
         &>div {
             right: 400px;
+            display: flex;
         }
     }
 }
@@ -117,6 +118,7 @@ section.bannerContainer {
         &>div {
             transform: translateY(-70%);
             text-align: center;
+            display: flex;
             &>h1 {
                 font-size: 9em;
             }
@@ -134,7 +136,8 @@ section.bannerContainer {
         margin-top: 200px;
         overflow: hidden;
         &>div {
-            width: min(800px, 200%);
+            width: 800px;
+            display: flex;
         }
     }
 }
@@ -150,8 +153,10 @@ section.bannerContainer {
         height: 100%;
         overflow: hidden;
         margin-top: 200px;
+
         &>div {
             width: 200%;
+            display: flex;
         }
     }
 
