@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import styles from './MenuMobile.module.css'
 import { FaLinkedin, FaGithub } from "react-icons/fa"
 import { BiAdjust } from "react-icons/bi"
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import LinkDestacado from 'Components/LinkDestacado'
 import LinkMenuWhatsApp from 'Components/LinkMenuWhatsApp'
 
@@ -12,92 +12,38 @@ export default function Menu() {
     const [noturno, setNoturno] = useState(tema__localStorage)
     const [menuAberto, setMenuAberto] = useState(false)
     const [ contatoAberto, setContatoAberto ] = useState(false)
-    const icon__tema = useRef(null)
-    const menu__hamburguer = useRef(null)
-    const menu__hamburguer__linha1 = useRef(null)
-    const menu__hamburguer__linha2 = useRef(null)
-    const menu__hamburguer__linha3 = useRef(null)
-    const menu__container = useRef(null)
     
     const numeroWhats = '554199497870'
     const mensagemWhats = 'Olá, adorei seu portfólio, vamos conversar?'
-    
+
     useEffect(() => {
-        const tema = document.documentElement.style
-
-        function testarTema() {
-            if (noturno === false) {
-                temaSite(noturno)
-            }else if (noturno === true) {
-                temaSite(noturno)
-            }else {
-                setNoturno(false)
-                localStorage.setItem('tema__noturno', false)
-                temaSite(noturno)
-            }
-        }
-
-        function temaSite(temaSite) {
-            if (!temaSite) {
-                tema.setProperty('--cor-1', '#202734')
-                tema.setProperty('--cor-2', '#f4f4f4')
-            }else {
-                tema.setProperty('--cor-1', '#f4f4f4')
-                tema.setProperty('--cor-2', '#202734')
-            }
-        }
-    
-        testarTema()
-    },[noturno])
-
-    useEffect(() =>{
-
-        function abrirMenu() {
-            menu__container.current.style.top = 0
-            menu__hamburguer__linha1.current.style.transform = 'translateY(15px) rotate(45deg)'
-            menu__hamburguer__linha2.current.style.opacity = '0'
-            menu__hamburguer__linha3.current.style.transform = 'translateY(-15px) rotate(-45deg)'
-        }
-        function fecharMenu() {
-            menu__container.current.style.top = '-100vh'
-            menu__hamburguer__linha1.current.style.transform = 'translateY(0px) rotate(0deg)'
-            menu__hamburguer__linha2.current.style.opacity = '1'
-            menu__hamburguer__linha3.current.style.transform = 'translateY(0px) rotate(0deg)'
-        }
-        
-        menuAberto ? abrirMenu() : fecharMenu()
-
-    }, [menuAberto])
-
+        const isTelaDark = JSON.parse(localStorage.getItem('tema__noturno'))
+        if(isTelaDark) document.documentElement.classList.add('dark')
+    }, [])
 
     function mudarTema() {
-            
-        if (noturno){
-            localStorage.setItem('tema__noturno', false)
-            setNoturno(false)
-        }else if (!noturno) {
-            localStorage.setItem('tema__noturno', true)
-            setNoturno(true)
-        }
-        
+        localStorage.setItem('tema__noturno', !noturno)
+        setNoturno(!noturno)
+        document.documentElement.classList.toggle('dark')
     }
 
     return(
         <header className={styles.menuMobile}>
-            <div 
-                ref={menu__hamburguer}
+            <div
                 className={styles.hamburguer}
-                onClick={
-                    () => {
-                        setMenuAberto(!menuAberto)
-                    } 
-                }
+                onClick={ () => setMenuAberto(!menuAberto) }
             >
-                    <span ref={menu__hamburguer__linha1}></span>
-                    <span ref={menu__hamburguer__linha2}></span>
-                    <span ref={menu__hamburguer__linha3}></span>
+                    <span style={{
+                        transform: menuAberto && 'translateY(15px) rotate(45deg)',
+                    }}></span>
+                    <span style={{
+                        opacity: menuAberto && 0,
+                    }}></span>
+                    <span style={{
+                        transform: menuAberto && 'translateY(-15px) rotate(-45deg)',
+                    }}></span>
             </div>
-            <section ref={menu__container}>
+            <section style={{top: !menuAberto ? '-100vh' : '0px'}}>
                 <nav className={styles.navegacao}>
                     <ul>
                         {
@@ -134,7 +80,6 @@ export default function Menu() {
                             onClick={ mudarTema }
                         >
                             <BiAdjust
-                                ref={icon__tema}
                                 className={styles.icon_tema}
                             />
 
