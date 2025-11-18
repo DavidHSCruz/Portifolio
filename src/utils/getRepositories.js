@@ -1,9 +1,9 @@
 import { Octokit } from "octokit"
 
-const octokit = new Octokit({ auth: process.env.REACT_APP_GITHUB_TOKEN })
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
 
 export async function getProjetos() {
-    const username = process.env.REACT_APP_GITHUB_USERNAME
+    const username = process.env.GITHUB_USERNAME
     
     // 1) Buscar os repositórios
     const { data: repos } = await octokit.request("GET /user/repos", {
