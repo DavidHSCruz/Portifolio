@@ -29,8 +29,6 @@ export const Avatar = () => {
         const posX = width * x
         const posY = height * y
 
-        console.log(posX, posY)
-
         setLookAt({ x: left + posX, y: top + posY })
     }
     

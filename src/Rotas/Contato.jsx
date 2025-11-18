@@ -1,5 +1,4 @@
 import Banner from "Components/Banner";
-import Cards from "Components/Cards";
 import LinkWhatsApp from "Components/LinkWhatsApp";
 import Trajetoria from "Components/Trajetoria";
 
@@ -10,7 +9,6 @@ export default function Contato() {
     return(
         <main>
             <Banner />
-            <Cards title='PRINCIPAIS PROJETOS' />
             <Trajetoria title='MINHA TRAJETÓRIA' />
             <LinkWhatsApp numeroWhats={numeroWhats} mensagemWhats={mensagemWhats}/>
         </main>

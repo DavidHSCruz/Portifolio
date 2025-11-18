@@ -1,7 +1,7 @@
-import Banner from "Components/Banner";
-import LinkWhatsApp from "Components/LinkWhatsApp";
-import PrincipaisProjetos from "Components/PrincipaisProjetos";
-import Trajetoria from "Components/Trajetoria";
+import Banner from "Components/Banner"
+import LinkWhatsApp from "Components/LinkWhatsApp"
+import Projetos from "Components/Projetos"
+import Trajetoria from "Components/Trajetoria"
 
 export default function Home() {
     const numeroWhats = '554199497870'
@@ -10,7 +10,7 @@ export default function Home() {
     return(
         <main>
             <Banner />
-            <PrincipaisProjetos />
+            <Projetos title='MEUS PROJETOS'/>
             <Trajetoria title='MINHA TRAJETÓRIA' />
             <LinkWhatsApp numeroWhats={numeroWhats} mensagemWhats={mensagemWhats}/>
         </main>
