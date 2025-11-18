@@ -12,7 +12,7 @@ export async function getProjetos() {
         per_page: 100,
         sort: "pushed"
     })
-    console.log(username)
+    
     // 2) Tratar os dados
     if (!repos || repos.length === 0) return []
     
