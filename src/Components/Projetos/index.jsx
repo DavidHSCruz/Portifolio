@@ -11,7 +11,7 @@ const Projetos = ({title}) => {
         async function getRepositories() {
             const projetos = await getProjetos()
             if(projetos.length === 0) return
-
+            
             setProjetos(projetos)
             setLoading(false)
         }
@@ -29,7 +29,7 @@ const Projetos = ({title}) => {
                     <Card
                         key={repo.id}
                         title={repo.name}
-                        descricao={repo.description}
+                        description={repo.description}
                         img={!repo.private ? repo.image : `/imagens/Projetos/${repo.name}.png`}
                         tags={repo.tags}
                         privateRepo={repo.private}

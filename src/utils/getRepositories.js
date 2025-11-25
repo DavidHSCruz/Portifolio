@@ -30,7 +30,7 @@ export async function getProjetos() {
             language: repo.language,
             url: repo.private ? null : repo.html_url,
             private: repo.private,
-            homepage: repo.homepage,
+            homepage: repo.private ? null : repo.homepage,
             updated_at: repo.updated_at,
         }
     })

@@ -1,9 +1,34 @@
-import { Link } from 'react-router-dom'
-import styles from './Card.module.css'
+import { Link } from 'react-router-dom';
+import styles from './Card.module.css';
+import { useMemo, useState } from 'react';
 
-export default function Card({ title, descricao, tags, img, to, github, updated_at, privateRepo }) {
+export default function Card({ title, description: d, tags, img, to, github, updated_at, privateRepo }) {
+    const [hovered, setHovered] = useState(false);
+    const description = useMemo(() => {
+        if(hovered) {
+            return d;
+        }
+
+        return maxCharacters(d)
+    }, [hovered, d]);
+
+    function maxCharacters(text, n=100) {
+        if(text.length <= n) {
+            return text;
+        }
+        return text.substring(0, n) + '...';
+    }
+
     return (
-        <Link className={styles.card} to={to} target="_blank">
+        <div 
+            className={styles.card}
+            style={{height: !hovered ? '260px' : 'auto'}}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            to={to}
+            target="_blank"
+            rel="noopener noreferrer"
+        >
             <div 
                 className={styles.img}
                 style={{backgroundImage: `url(${img})`}}
@@ -16,16 +41,29 @@ export default function Card({ title, descricao, tags, img, to, github, updated_
                     <p className={styles.private}>Repositório Privado</p>
                 }
                 
-                <p>{descricao}</p>
-                <div>
+                <p>{description}</p>
+                {hovered &&
+                    <div className={styles.links}>
+                        {github &&
+                            <Link to={github} target="_blank" rel="noopener noreferrer"><p>Ver no GitHub</p></Link>
+                        }
+                        {to &&
+                            <Link to={to} target="_blank" rel="noopener noreferrer"><p>Ver Projeto</p></Link>
+                        }
+                    </div>
+                }
+                <div className={styles.tags}>
                     {tags.map((tag, index) => (
                         <div key={index}>
                             <p>{tag}</p>
                         </div>
                     ))
-                    }
+                }
                 </div>
+                {hovered &&
+                    <p className={styles.updated_at}>Atualizado em: {new Date(updated_at).toLocaleDateString('pt-BR')}</p>
+                }
             </div>
-        </Link>
+        </div>
     )
 }
