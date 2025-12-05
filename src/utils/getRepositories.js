@@ -12,7 +12,7 @@ export async function getProjetos() {
         per_page: 100,
         sort: "pushed"
     })
-    
+    console.log(repos)
     // 2) Tratar os dados
     if (!repos || repos.length === 0) return []
     
@@ -30,7 +30,7 @@ export async function getProjetos() {
             language: repo.language,
             url: repo.private ? null : repo.html_url,
             private: repo.private,
-            homepage: repo.private ? null : repo.homepage,
+            homepage: repo.homepage,
             updated_at: repo.updated_at,
         }
     })
