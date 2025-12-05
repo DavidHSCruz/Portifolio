@@ -33,6 +33,16 @@
             line-height: 1.5em;
             opacity: .75;
         }
+
+        & h3 {
+            font-size: 1.5em;
+            line-height: 1.5em;
+        }
+
+        & .block_icon {
+            font-size: 1.2em;
+            color: var(--cor-verde);
+        }
         
         &>.links {
             display: flex;

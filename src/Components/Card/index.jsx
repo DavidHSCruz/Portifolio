@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './Card.module.css';
 import { useMemo, useState } from 'react';
+import { TbLockFilled } from "react-icons/tb";
 
 export default function Card({ title, description: d, tags, img, to, github, updated_at, privateRepo }) {
     const [hovered, setHovered] = useState(false);
@@ -12,7 +13,7 @@ export default function Card({ title, description: d, tags, img, to, github, upd
         return maxCharacters(d)
     }, [hovered, d]);
 
-    function maxCharacters(text, n=100) {
+    function maxCharacters(text, n=90) {
         if(text.length <= n) {
             return text;
         }
@@ -35,11 +36,14 @@ export default function Card({ title, description: d, tags, img, to, github, upd
             >
             </div>
             <div className={styles.description}>
-
-                <h3>{title}</h3>
-                {privateRepo &&
-                    <p className={styles.private}>Repositório Privado</p>
-                }
+                <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                    <h3>{title}</h3>
+                    {privateRepo &&
+                        <div className={styles.block_icon}>
+                            <TbLockFilled />
+                        </div>
+                    }
+                </div>
                 
                 <p>{description}</p>
                 {hovered &&

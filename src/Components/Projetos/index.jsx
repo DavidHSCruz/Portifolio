@@ -25,7 +25,7 @@ const Projetos = ({title}) => {
         <section className={styles.cards_container}>
             <h1>{title}</h1>
             <div className={styles.cards_component}>
-                {projetos.filter(repo => repo.image && repo.name && repo.tags.length !== 0).map(repo => 
+                {projetos.filter(repo => repo.name && repo.tags.length !== 0).map(repo => 
                     <Card
                         key={repo.id}
                         title={repo.name}
