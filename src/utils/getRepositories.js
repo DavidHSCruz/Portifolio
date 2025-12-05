@@ -16,7 +16,7 @@ export async function getProjetos() {
     // 2) Tratar os dados
     if (!repos || repos.length === 0) return []
     
-    const deleteRepositories = ['portfolio', 'davidhscruz', 'escala', 'projetos', 'casadinhos']
+    const deleteRepositories = ['portfolio', 'davidhscruz', 'escala', 'projetos']
     
     const projetos = repos.map( repo => {
         if (deleteRepositories.some( delRepo => repo.name.toLowerCase().startsWith(delRepo.toLowerCase()) )) return null
